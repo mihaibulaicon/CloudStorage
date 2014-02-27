@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudStorage", "CloudStorage\CloudStorage.csproj", "{BE49CEB3-F443-4A15-B314-00D6A72BF5FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RavenDatabase", "RavenDatabase\RavenDatabase.csproj", "{5EFDB582-9BB7-4181-B834-04BD42FCD490}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseEntities", "DatabaseEntities\DatabaseEntities.csproj", "{2B22732C-7DEE-4431-A26F-FF6AB6E0DD59}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE49CEB3-F443-4A15-B314-00D6A72BF5FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE49CEB3-F443-4A15-B314-00D6A72BF5FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE49CEB3-F443-4A15-B314-00D6A72BF5FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE49CEB3-F443-4A15-B314-00D6A72BF5FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EFDB582-9BB7-4181-B834-04BD42FCD490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EFDB582-9BB7-4181-B834-04BD42FCD490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EFDB582-9BB7-4181-B834-04BD42FCD490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EFDB582-9BB7-4181-B834-04BD42FCD490}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B22732C-7DEE-4431-A26F-FF6AB6E0DD59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B22732C-7DEE-4431-A26F-FF6AB6E0DD59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B22732C-7DEE-4431-A26F-FF6AB6E0DD59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B22732C-7DEE-4431-A26F-FF6AB6E0DD59}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

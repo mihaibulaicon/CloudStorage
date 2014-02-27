@@ -1,0 +1,11 @@
+﻿@model DatabaseEntities.Utilizator
+<div>
+<p>Tis is index</p>
+@using(Html.BeginForm())
+    {
+    @Html.EditorFor(m => m.Nume)
+    @Html.EditorFor(m => m.Prenume)
+
+    <input type="submit" value="Salveaza" />
+    }
+</div>

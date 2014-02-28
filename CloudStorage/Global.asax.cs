@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using CloudStorage.Services;
 using Raven.Client;
 using Raven.Client.Embedded;
@@ -28,8 +29,6 @@ namespace CloudStorage
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             AutofacSetup();
-            //RegisterRavenDb(builder);
-            //RegisterTypes(builder);
         }
         void Session_Start(object sender, EventArgs e)
         {
@@ -39,10 +38,16 @@ namespace CloudStorage
         {
             builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterApiControllers(typeof(MvcApplication).Assembly);
             RegisterTypes(builder);
             RegisterRavenDb(builder);
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+            var resolver = new AutofacWebApiDependencyResolver(container);
+
+            // Configure Web API with the dependency resolver.
+            GlobalConfiguration.Configuration.DependencyResolver = resolver;
         }
         
         private void RegisterTypes(ContainerBuilder builder)
@@ -53,15 +58,12 @@ namespace CloudStorage
         protected virtual void RegisterRavenDb(ContainerBuilder builder)
         {
             documentStore = new EmbeddableDocumentStore { DataDirectory = "~/CloudStorageDatabase", UseEmbeddedHttpServer = true };
-            //Raven.Database.Server.NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8080);
             documentStore.Initialize();
 
             builder.Register(c => documentStore).As<IDocumentStore>().SingleInstance();
             var session = documentStore.OpenSession();
 
-            builder.Register(c => session).As<IDocumentSession>().SingleInstance();
-           
-
+            builder.Register(c => session).As<IDocumentSession>().InstancePerLifetimeScope();
         }
     }
 }

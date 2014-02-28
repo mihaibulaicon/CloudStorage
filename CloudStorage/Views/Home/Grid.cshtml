@@ -7,11 +7,11 @@
 <h2>Utilizatori</h2>
 
 <div>
-@Html.Grid(Model).Columns(columns =>
-          {
-                columns.Add(foo => foo.Nume).Titled("Custom column title").SetWidth(110);
-                columns.Add(foo => foo.Prenume).Sortable(true);
-          }).WithPaging(20)   
+     <body ng-controller="MyCtrl">
+        <div class="gridStyle" ng-grid="gridOptions">
+           <button ng-click="SaveUsers">Salveaza modificarile</button>
+        </div>
+    </body>
 </div>
 
 

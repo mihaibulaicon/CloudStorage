@@ -252,3 +252,6 @@ CloudStorage/CloudStorageDatabase/Indexes/Raven%2fDocumentsByEntityName/CommitPo
 CloudStorage/CloudStorageDatabase/Indexes/Raven%2fDocumentsByEntityName/CommitPoints/0000000000000000023/segments_n
 CloudStorage/CloudStorageDatabase/Indexes/Auto%2fUtilizators%2fByPrenumeSortByPrenume/segments.gen
 CloudStorage/CloudStorageDatabase/system/RVN.chk
+CloudStorage/CloudStorageDatabase/Data
+CloudStorage/CloudStorageDatabase/system/RVN.chk
+CloudStorage/CloudStorageDatabase/Indexes/Auto%2fUtilizators%2fByPrenumeSortByPrenume/CommitPoints/0000000000000000010/index.commitPoint

@@ -8,6 +8,7 @@ namespace DatabaseEntities
 {
     public class Utilizator
     {
+        public string Id { get; set; }
         public string Nume { get; set; }
         public string Prenume { get; set; }
     }

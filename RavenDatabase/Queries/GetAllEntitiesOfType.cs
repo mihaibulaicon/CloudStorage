@@ -13,8 +13,8 @@ namespace RavenDatabase
         public IQueryable Execute(IDocumentSession documentSession)
         {
             return
-                from utilizator in documentSession.Query<T>()
-                select utilizator;
+                from entity in documentSession.Query<T>()
+                select entity;
         }
     }
 }

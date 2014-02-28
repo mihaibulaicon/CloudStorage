@@ -19,7 +19,7 @@ namespace CloudStorage
     // visit http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : System.Web.HttpApplication
     {
-        private ContainerBuilder builder { get; set; }
+        public ContainerBuilder builder { get; set; }
         private IDocumentStore documentStore { get; set; }
         protected void Application_Start()
         {
@@ -57,7 +57,7 @@ namespace CloudStorage
         }
         protected virtual void RegisterRavenDb(ContainerBuilder builder)
         {
-            documentStore = new EmbeddableDocumentStore { DataDirectory = "~/CloudStorageDatabase", UseEmbeddedHttpServer = true };
+            documentStore = new EmbeddableDocumentStore { DataDirectory = "D:\\CloudStorage\\CloudStorageDatabase", UseEmbeddedHttpServer = true };
             documentStore.Initialize();
 
             builder.Register(c => documentStore).As<IDocumentStore>().SingleInstance();

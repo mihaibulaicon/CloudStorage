@@ -46,9 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICommandDefinition.cs" />
-    <Compile Include="ICommandService.cs" />
-    <Compile Include="SaveEntity.cs" />
+    <Compile Include="Queries\GetAllEntitiesOfType.cs" />
+    <Compile Include="Services\ICommandDefinition.cs" />
+    <Compile Include="Services\ICommandService.cs" />
+    <Compile Include="Services\IQueryDefinition.cs" />
+    <Compile Include="Services\IQueryService.cs" />
+    <Compile Include="Commands\SaveEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

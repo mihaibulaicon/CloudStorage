@@ -47,17 +47,20 @@ namespace CloudStorage
         
         private void RegisterTypes(ContainerBuilder builder)
         {
-            builder.RegisterType<SaveEntityService>().As<ICommandService>();
+            builder.RegisterType<CommandService>().As<ICommandService>();
+            builder.RegisterType<QueryService>().As<IQueryService>();
         }
         protected virtual void RegisterRavenDb(ContainerBuilder builder)
         {
             documentStore = new EmbeddableDocumentStore { DataDirectory = "~/CloudStorageDatabase", UseEmbeddedHttpServer = true };
+            //Raven.Database.Server.NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8080);
             documentStore.Initialize();
 
             builder.Register(c => documentStore).As<IDocumentStore>().SingleInstance();
             var session = documentStore.OpenSession();
 
             builder.Register(c => session).As<IDocumentSession>().SingleInstance();
+           
 
         }
     }

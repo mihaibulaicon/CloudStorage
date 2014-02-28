@@ -12,11 +12,14 @@ namespace CloudStorage.Controllers
     public class HomeController : Controller
     {
         ICommandService CommandService { get; set; }
-
+        IQueryService QueryService { get; set; }
+     //   IDocumentSession DocumentSession { get; set; }
         public HomeController() { }
-        public HomeController(ICommandService command)
+        public HomeController(ICommandService commandService, IQueryService queryService)//, IDocumentSession documentSession)
         {
-            CommandService = command;
+            CommandService = commandService;
+            QueryService = queryService;
+            //DocumentSession = documentSession;
         }
         //
         // GET: /Home/
@@ -33,6 +36,11 @@ namespace CloudStorage.Controllers
             return View();
         }
 
+        public ActionResult Grid()
+        {
+            var model = QueryService.Execute(new GetAllEntitiesOfType<Utilizator>());
+            return View(model);
+        }
         //
         // GET: /Home/Details/5
 

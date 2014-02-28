@@ -1,0 +1,17 @@
+﻿@model IQueryable<DatabaseEntities.Utilizator>
+@{
+    ViewBag.Title = "Grid";
+}
+@using GridMvc.Html
+
+<h2>Utilizatori</h2>
+
+<div>
+@Html.Grid(Model).Columns(columns =>
+          {
+                columns.Add(foo => foo.Nume).Titled("Custom column title").SetWidth(110);
+                columns.Add(foo => foo.Prenume).Sortable(true);
+          }).WithPaging(20)   
+</div>
+
+

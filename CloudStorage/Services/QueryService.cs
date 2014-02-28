@@ -8,12 +8,12 @@ using System.Web.Mvc;
 
 namespace CloudStorage.Services
 {
-    public class SaveEntityService : ICommandService
+    public class QueryService : IQueryService
     {
-        public void Execute(ICommandDefinition commandDefinition)
+        public IQueryable Execute(IQueryDefinition queryDefinition)
         {
             var documentSession = DependencyResolver.Current.GetService<IDocumentSession>();
-            commandDefinition.Execute(documentSession);
+            return queryDefinition.Execute(documentSession);
         }
     }
 }

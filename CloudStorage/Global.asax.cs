@@ -59,7 +59,7 @@ namespace CloudStorage
         {
             documentStore = new EmbeddableDocumentStore { DataDirectory = "D:\\CloudStorage\\CloudStorageDatabase", UseEmbeddedHttpServer = true };
             documentStore.Initialize();
-
+            documentStore.Conventions.IdentityPartsSeparator = "-";
             builder.Register(c => documentStore).As<IDocumentStore>().SingleInstance();
             var session = documentStore.OpenSession();
 

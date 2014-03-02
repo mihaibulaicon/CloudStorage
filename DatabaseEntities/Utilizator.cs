@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DatabaseEntities
 {
-    public class Utilizator
+    public class Utilizator : BaseEntity
     {
-        public string Id { get; set; }
         public string Nume { get; set; }
         public string Prenume { get; set; }
     }

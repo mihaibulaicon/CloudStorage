@@ -48,16 +48,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\DeleteEntity.cs" />
     <Compile Include="Queries\GetAllEntitiesOfType.cs" />
+    <Compile Include="Queries\GetEntityById.cs" />
     <Compile Include="Services\ICommandDefinition.cs" />
     <Compile Include="Services\ICommandService.cs" />
     <Compile Include="Services\IQueryDefinition.cs" />
     <Compile Include="Services\IQueryService.cs" />
-    <Compile Include="Commands\SaveEntity.cs" />
+    <Compile Include="Commands\SaveOrUpdateEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DatabaseEntities\DatabaseEntities.csproj">
+      <Project>{2b22732c-7dee-4431-a26f-ff6ab6e0dd59}</Project>
+      <Name>DatabaseEntities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

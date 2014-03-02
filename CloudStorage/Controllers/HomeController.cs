@@ -32,7 +32,7 @@ namespace CloudStorage.Controllers
         [HttpPostAttribute]
         public ActionResult Index(Utilizator model)
         {
-            CommandService.Execute(new SaveEntity<Utilizator>() { Entity = model });
+            CommandService.Execute(new SaveOrUpdateEntity<Utilizator>() { Entity = model });
             return View();
         }
 

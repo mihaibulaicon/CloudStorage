@@ -38,15 +38,19 @@ namespace CloudStorage.Controllers
         public void Post([FromBody]Utilizator value)
         {
         }
-
+        
         // PUT api/<controller>/5
-        public void Put(string id, [FromBody]Utilizator value)
+        [HttpPut]
+        public void Put(IEnumerable<Utilizator> utilizatori)
         {
+            foreach(var utilizator in utilizatori)
+               CommandService.Execute(new SaveOrUpdateEntity<Utilizator>() { Entity = utilizator });
         }
 
         // DELETE api/<controller>/5
         public void Delete(string id)
         {
+            CommandService.Execute(new DeleteEntity<Utilizator>() { Id = id });
         }
     }
 }

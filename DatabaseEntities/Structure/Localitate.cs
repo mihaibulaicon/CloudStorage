@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DatabaseEntities
+namespace DatabaseEntities.Entities
 {
-    public class Utilizator : BaseEntity
+    public class Localitate : BaseEntity
     {
         public string Nume { get; set; }
-        public string Prenume { get; set; }
+        public IEnumerable<Locatie> Locatii { get; set; }
     }
 }

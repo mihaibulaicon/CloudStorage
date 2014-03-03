@@ -40,7 +40,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
-    <Compile Include="Utilizator.cs" />
+    <Compile Include="Entities\Categorie.cs" />
+    <Compile Include="Structure\Cladire.cs" />
+    <Compile Include="Entities\Clasificare.cs" />
+    <Compile Include="Entities\Destinatie.cs" />
+    <Compile Include="Entities\Firma.cs" />
+    <Compile Include="Structure\Incapere.cs" />
+    <Compile Include="Structure\Localitate.cs" />
+    <Compile Include="Structure\Localizare.cs" />
+    <Compile Include="Structure\Locatie.cs" />
+    <Compile Include="Entities\Material.cs" />
+    <Compile Include="Entities\TipStatie.cs" />
+    <Compile Include="Entities\NivelClasificare.cs" />
+    <Compile Include="Entities\SubTipStatie.cs" />
+    <Compile Include="Entities\UnitateMasura.cs" />
+    <Compile Include="Structure\Birou.cs" />
+    <Compile Include="Structure\Compartiment.cs" />
+    <Compile Include="Structure\Rank.cs" />
+    <Compile Include="Structure\Sectie.cs" />
+    <Compile Include="Structure\Serviciu.cs" />
+    <Compile Include="Structure\Utilizator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

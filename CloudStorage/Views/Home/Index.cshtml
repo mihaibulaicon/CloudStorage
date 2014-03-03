@@ -1,11 +1,17 @@
-﻿@model DatabaseEntities.Utilizator
-<div>
-<p>Tis is index</p>
-@using(Html.BeginForm())
-    {
-    @Html.EditorFor(m => m.Nume)
-    @Html.EditorFor(m => m.Prenume)
+﻿@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript" src="~/Scripts/AngularControllers/utilizatori.js"></script>
 
-    <input type="submit" value="Salveaza" />
-    }
+
+<div class="center" ng-controller="utilizatori">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <div ng-show="editT">
+            <input type="text" ng-model="id" disabled="true"/>
+            <input type="text" ng-model="name"/><br/>
+            <input type="button" value="save" ng-click="save()" />
+            <input type="button" value="cancel" ng-click="cancel()" />
+    </div>
 </div>
+
+

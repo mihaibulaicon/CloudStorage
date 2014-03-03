@@ -1,8 +1,9 @@
 ﻿var app = angular.module('CloudStorage', ['ngGrid']);
-app.controller('MyCtrl', function ($scope) {
+app.controller('utilizatori', function ($scope) {
     $.getJSON("http://localhost/CloudStorage/api/utilizatori", function (data) {
         $scope.myData = data;
     });
+    var editContactCellTemplate = '<input type="button" value="Edit" ng-click="OnContactEdit(row.entity)"></input>';
     $scope.gridOptions = {
         data: 'myData',
         enableCellSelection: true,
@@ -10,7 +11,8 @@ app.controller('MyCtrl', function ($scope) {
         enableCellEditOnFocus: true,
         columnDefs: [{field: 'Nume', displayName: 'Nume', enableCellEdit: true}, 
                      { field: 'Prenume', displayName: 'Prenume', enableCellEdit: true },
-                     { field: 'deleteButton', displayName: 'Sterge', width: 90, cellTemplate: '<button ng-click="DeleteEntity()">Șterge</button>', editable:false }]
+                     {field:'edit', displayName:'Edit', enableCellEdit: true, cellTemplate: editContactCellTemplate, colFilterText: ''},
+                     { field: 'deleteButton', displayName: 'Sterge', width: 90, cellTemplate: '<button ng-click="DeleteEntity()">Șterge</button>', enableCellEdit: false }]
     };
     
     $scope.SaveChanges= function () {

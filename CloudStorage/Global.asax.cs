@@ -62,7 +62,7 @@ namespace CloudStorage
             documentStore.Conventions.IdentityPartsSeparator = "-";
             builder.Register(c => documentStore).As<IDocumentStore>().SingleInstance();
             var session = documentStore.OpenSession();
-
+            session.Advanced.MaxNumberOfRequestsPerSession = 1000;
             builder.Register(c => session).As<IDocumentSession>().InstancePerLifetimeScope();
         }
     }

@@ -162,6 +162,7 @@
     <Content Include="Content\style.css" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\RanksController.cs" />
     <Compile Include="Controllers\UtilizatoriController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -169,6 +170,7 @@
     <Compile Include="Models\GridModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\AngularControllers\utilizatori.js" />
+    <Content Include="Scripts\AngularControllers\ranks.js" />
     <Compile Include="Services\QueryService.cs" />
     <Compile Include="Services\CommandService.cs" />
   </ItemGroup>
@@ -480,6 +482,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />
     <Content Include="Scripts\AngularJS\version.json" />
+    <None Include="Views\rankTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

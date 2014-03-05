@@ -2,16 +2,38 @@
     ViewBag.Title = "Index";
 }
 <script type="text/javascript" src="~/Scripts/AngularControllers/utilizatori.js"></script>
+@*<script type="text/javascript" src="~/Scripts/AngularControllers/ranks.js"></script>*@
 
 
-<div class="center" ng-controller="utilizatori">
+
+<div class="jumbotron">
+    <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('utilizatori')">Utilizatori</a>
+    <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('ranks')">Ranks</a>
+</div>
+<div id="utilizatoricontroller" class="controller" ng-controller="utilizatori">
     <div class="gridStyle" ng-grid="gridOptions">
-        <div ng-show="editT">
-            <input type="text" ng-model="id" disabled="true"/>
-            <input type="text" ng-model="name"/><br/>
-            <input type="button" value="save" ng-click="save()" />
-            <input type="button" value="cancel" ng-click="cancel()" />
+        <button ng-click="addRow()">Adauga</button>
+        <button ng-click="SaveChanges()">Salveaza</button>
+    </div>
+</div>
+<div id="rankscontroller" class="controller" ng-controller="ranks">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button ng-click="addRow()">Adauga</button>
+        <button ng-click="SaveChanges()">Salveaza</button>
     </div>
 </div>
 
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".controller").css('visibility', 'hidden');
+    });
+    function ChangeController(controller) {
+        $.ajax({ async: false })
+        $('#' + controller + 'controller').scope().refresh();
+        $.ajax({ async: true })
+        $('#' + controller + 'controller').scope().gridOptions.ngGrid.buildColumns();
+        $(".controller").css('visibility', 'hidden');
+        $("#" + controller + "controller").css('visibility', 'visible');
+    }
+</script>

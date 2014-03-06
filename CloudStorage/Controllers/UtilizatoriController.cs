@@ -1,4 +1,4 @@
-﻿using DatabaseEntities.Structure;
+﻿using CloudStorage.DatabaseEntities.Structure;
 using RavenDatabase;
 using System;
 using System.Collections.Generic;

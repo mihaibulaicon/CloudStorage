@@ -51,16 +51,24 @@
       <HintPath>..\packages\Autofac.WebApi2.3.2.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Data.Edm, Version=5.6.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Data.Edm.5.6.1\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Data.OData, Version=5.6.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Data.OData, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Data.OData.5.6.1\lib\net40\Microsoft.Data.OData.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Data.Services.Client">
-      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.1\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    <Reference Include="Microsoft.Data.Services, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.Services.5.6.0\lib\net40\Microsoft.Data.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.0\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Toolkit">
+      <HintPath>..\packages\Nivot.WCFDataServicesToolkit.5.6.0\lib\net40\Microsoft.Data.Services.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
@@ -92,15 +100,18 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.1.1\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
-    <Reference Include="System.Spatial, Version=5.6.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Spatial, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\System.Spatial.5.6.1\lib\net40\System.Spatial.dll</HintPath>
+      <HintPath>..\packages\System.Spatial.5.6.0\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -159,6 +170,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseEntities\Entities\Categorie.cs" />
+    <Compile Include="DatabaseEntities\Entities\Clasificare.cs" />
+    <Compile Include="DatabaseEntities\Entities\Destinatie.cs" />
+    <Compile Include="DatabaseEntities\Entities\Firma.cs" />
+    <Compile Include="DatabaseEntities\Entities\Material.cs" />
+    <Compile Include="DatabaseEntities\Entities\NivelClasificare.cs" />
+    <Compile Include="DatabaseEntities\Entities\SubTipStatie.cs" />
+    <Compile Include="DatabaseEntities\Entities\TipStatie.cs" />
+    <Compile Include="DatabaseEntities\Entities\UnitateMasura.cs" />
+    <Compile Include="DatabaseEntities\Structure\Birou.cs" />
+    <Compile Include="DatabaseEntities\Structure\Cladire.cs" />
+    <Compile Include="DatabaseEntities\Structure\Compartiment.cs" />
+    <Compile Include="DatabaseEntities\Structure\Incapere.cs" />
+    <Compile Include="DatabaseEntities\Structure\Localitate.cs" />
+    <Compile Include="DatabaseEntities\Structure\Localizare.cs" />
+    <Compile Include="DatabaseEntities\Structure\Locatie.cs" />
+    <Compile Include="DatabaseEntities\Structure\Rank.cs" />
+    <Compile Include="DatabaseEntities\Structure\Sectie.cs" />
+    <Compile Include="DatabaseEntities\Structure\Serviciu.cs" />
+    <Compile Include="DatabaseEntities\Structure\Utilizator.cs" />
+    <Compile Include="EntitiesService.svc.cs">
+      <DependentUpon>EntitiesService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WCFDataContext\DataContext.cs" />
     <Content Include="Content\style.css" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -167,8 +202,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\GridModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="EntitiesService.svc" />
     <Content Include="Scripts\AngularControllers\utilizatori.js" />
     <Content Include="Scripts\AngularControllers\ranks.js" />
     <Compile Include="Services\QueryService.cs" />
@@ -486,6 +521,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
     <Folder Include="Views\Utilizatori\" />
   </ItemGroup>
   <ItemGroup>

@@ -13,9 +13,10 @@ namespace RavenDatabase
 
         public IQueryable Execute(IDocumentSession documentSession)
         {
-            return
-                from entity in documentSession.Query<T>().OrderBy(t=> t.Id)
+             var ranks =    from entity in documentSession.Query<T>().OrderBy(t=> t.Id)
                 select entity;
+
+             return ranks;
         }
     }
 }

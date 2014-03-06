@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>WCFDataServicesToolkit</id>
+    <version>0.6.1</version>
+    <title>WCF Data Services Toolkit</title>
+    <authors>Jonathan Carter</authors>
+    <owners>Jonathan Carter</owners>
+    <projectUrl>http://wcfdstoolkit.codeplex.com/</projectUrl>
+    <iconUrl>http://static.tumblr.com/hgchgxz/9ualgdf98/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Extensions to WCF Data Services that make it easier to expose arbitrary data sources.</description>
+    <summary>Extensions to WCF Data Services that make it easier to expose arbitrary data sources.</summary>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <tags>odata wcf .net40</tags>
+    <references>
+      <reference file="Microsoft.Data.Services.Toolkit.dll" />
+    </references>
+  </metadata>
+</package>

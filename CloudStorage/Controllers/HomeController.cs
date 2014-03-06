@@ -1,5 +1,4 @@
-﻿using DatabaseEntities.Structure;
-using Raven.Client;
+﻿using Raven.Client;
 using RavenDatabase;
 using System;
 using System.Collections.Generic;

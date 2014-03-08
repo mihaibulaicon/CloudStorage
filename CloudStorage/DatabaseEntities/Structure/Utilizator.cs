@@ -12,7 +12,10 @@ namespace CloudStorage.DatabaseEntities.Structure
         public string RankId { get; set; }
         public string Nume { get; set; }
         public string Prenume { get; set; }
-        public Birou Birou { get; set; }
+        public string BirouId { get; set; }
+        public string  SectieId { get; set; }
+        public string ServiciuId { get; set; }
+        public string MyProperty { get; set; }
         public bool EsteSef { get; set; }
     }
 }

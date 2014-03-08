@@ -170,6 +170,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BirouriController.cs" />
     <Compile Include="DatabaseEntities\Entities\Categorie.cs" />
     <Compile Include="DatabaseEntities\Entities\Clasificare.cs" />
     <Compile Include="DatabaseEntities\Entities\Destinatie.cs" />
@@ -181,7 +182,6 @@
     <Compile Include="DatabaseEntities\Entities\UnitateMasura.cs" />
     <Compile Include="DatabaseEntities\Structure\Birou.cs" />
     <Compile Include="DatabaseEntities\Structure\Cladire.cs" />
-    <Compile Include="DatabaseEntities\Structure\Compartiment.cs" />
     <Compile Include="DatabaseEntities\Structure\Incapere.cs" />
     <Compile Include="DatabaseEntities\Structure\Localitate.cs" />
     <Compile Include="DatabaseEntities\Structure\Localizare.cs" />
@@ -204,6 +204,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="EntitiesService.svc" />
+    <Content Include="Scripts\AngularControllers\birouri.js" />
+    <Content Include="Scripts\AngularControllers\main.js" />
     <Content Include="Scripts\AngularControllers\utilizatori.js" />
     <Content Include="Scripts\AngularControllers\ranks.js" />
     <Compile Include="Services\QueryService.cs" />

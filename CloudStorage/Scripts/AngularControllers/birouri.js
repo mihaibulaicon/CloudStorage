@@ -1,8 +1,8 @@
-﻿angular.module('CloudStorage').controller('ranks', ['$scope', function ($scope) {
+﻿angular.module('CloudStorage').controller('birouri', ['$scope', function ($scope) {
     $scope.myData = [];
     $scope.refresh = function () {
         $.ajax({
-            url: "/CloudStorage/api/ranks",
+            url: "/CloudStorage/api/birouri",
             dataType: 'json',
             async: false,
             success: function (data) {
@@ -26,12 +26,12 @@
     $scope.SaveChanges = function () {
         $.ajax({
             type: "PUT",
-            url: "/CloudStorage/api/ranks/",
+            url: "/CloudStorage/api/birouri/",
             data: JSON.stringify($scope.myData),
             dataType: 'json',
             contentType: "application/json"
         });
-        $.getJSON("/CloudStorage/api/ranks", function (data) {
+        $.getJSON("/CloudStorage/api/birouri", function (data) {
             $scope.myData = data;
         });
     };
@@ -39,7 +39,7 @@
         var index = $scope.myData.indexOf(row.entity);
         $.ajax({
             type: "DELETE",
-            url: "/CloudStorage/api/ranks/" + row.entity.Id,
+            url: "/CloudStorage/api/birouri/" + row.entity.Id,
         });
         $scope.gridOptions.selectItem(index, false);
         $scope.myData.splice(index, 1);

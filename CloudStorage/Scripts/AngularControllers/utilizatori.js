@@ -1,6 +1,7 @@
 ﻿angular.module('CloudStorage').controller('utilizatori', ['$scope', function ($scope) {
     $scope.myData = [];
     $scope.ranks = [];
+    $scope.birouri = [];
     $scope.refresh = function () {
         $.ajax({
             url: "/CloudStorage/api/utilizatori",
@@ -23,7 +24,7 @@
             dataType: 'json',
             async: false,
             success: function (data) {
-                $scope.ranks = data;
+                $scope.birouri = data;
             }
         });
     }  

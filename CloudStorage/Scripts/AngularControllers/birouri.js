@@ -1,5 +1,6 @@
 ﻿angular.module('CloudStorage').controller('birouri', ['$scope', function ($scope) {
     $scope.myData = [];
+    $scope.sectii = [];
     $scope.refresh = function () {
         $.ajax({
             url: "/CloudStorage/api/birouri",
@@ -9,6 +10,16 @@
                 $scope.myData = data;
             }
         });
+        $.ajax({
+            url: "/CloudStorage/api/sectii",
+            dataType: 'json',
+            async: false,
+            success: function (data) {
+                $scope.sectii = data;
+            }
+        });
+        if(!$scope.$$phase)
+         $scope.$apply();
     }
 
     $scope.refresh();
@@ -19,6 +30,12 @@
         enableRowSelection: false,
         enableCellEditOnFocus: true,
         columnDefs: [{ field: 'Nume', displayName: 'Nume', enableCellEdit: true },
+                       {
+                           field: 'SectieId',
+                           displayName: 'Sectie',
+                           cellTemplate: ' <select ng-model="myData[ row.rowIndex ].SectieId" ng-options="sectie.Id as sectie.Nume for sectie in sectii"></select>',
+                           enableCellEdit: false
+                       },
                      { field: 'deleteButton', displayName: 'Sterge', width: 90, cellTemplate: '<button ng-click="removeRow(row)">Șterge</button>', enableCellEdit: false }]
     };
 
@@ -30,9 +47,6 @@
             data: JSON.stringify($scope.myData),
             dataType: 'json',
             contentType: "application/json"
-        });
-        $.getJSON("/CloudStorage/api/birouri", function (data) {
-            $scope.myData = data;
         });
     };
     $scope.removeRow = function (row) {
@@ -46,6 +60,6 @@
 
     };
     $scope.addRow = function () {
-        $scope.myData.push({ Nume: '' });
+        $scope.myData.push({ Nume: '*' });
     };
 }]);

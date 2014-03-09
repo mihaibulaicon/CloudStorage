@@ -9,6 +9,8 @@
                 $scope.myData = data;
             }
         });
+        if (!$scope.$$phase)
+            $scope.$apply();
     }
 
     $scope.refresh();

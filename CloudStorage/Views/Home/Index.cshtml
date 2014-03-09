@@ -5,6 +5,7 @@
 <script type="text/javascript" src="~/Scripts/AngularControllers/utilizatori.js"></script>
 <script type="text/javascript" src="~/Scripts/AngularControllers/ranks.js"></script>
 <script type="text/javascript" src="~/Scripts/AngularControllers/birouri.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/sectii.js"></script>
 
 
 
@@ -12,6 +13,7 @@
     <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('utilizatori')">Utilizatori</a>
     <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('ranks')">Ranks</a>
     <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('birouri')">Birouri</a>
+    <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('sectii')">Sectii</a>
 </div>
 <div id="utilizatoricontroller" class="controller" ng-controller="utilizatori">
     <div class="gridStyle" ng-grid="gridOptions">
@@ -25,7 +27,12 @@
         <button ng-click="SaveChanges()">Salveaza</button>
     </div>
 </div>
-
+<div id="sectiicontroller" class="controller" ng-controller="sectii">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button ng-click="addRow()">Adauga</button>
+        <button ng-click="SaveChanges()">Salveaza</button>
+    </div>
+</div>
 <div id="birouricontroller" class="controller" ng-controller="birouri">
     <div class="gridStyle" ng-grid="gridOptions">
         <button ng-click="addRow()">Adauga</button>

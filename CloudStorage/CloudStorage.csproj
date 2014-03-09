@@ -171,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BirouriController.cs" />
+    <Compile Include="Controllers\SectiiController.cs" />
     <Compile Include="DatabaseEntities\Entities\Categorie.cs" />
     <Compile Include="DatabaseEntities\Entities\Clasificare.cs" />
     <Compile Include="DatabaseEntities\Entities\Destinatie.cs" />
@@ -206,6 +207,7 @@
     <Content Include="EntitiesService.svc" />
     <Content Include="Scripts\AngularControllers\birouri.js" />
     <Content Include="Scripts\AngularControllers\main.js" />
+    <Content Include="Scripts\AngularControllers\sectii.js" />
     <Content Include="Scripts\AngularControllers\utilizatori.js" />
     <Content Include="Scripts\AngularControllers\ranks.js" />
     <Compile Include="Services\QueryService.cs" />

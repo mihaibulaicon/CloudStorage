@@ -6,37 +6,46 @@
 <script type="text/javascript" src="~/Scripts/AngularControllers/ranks.js"></script>
 <script type="text/javascript" src="~/Scripts/AngularControllers/birouri.js"></script>
 <script type="text/javascript" src="~/Scripts/AngularControllers/sectii.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/servicii.js"></script>
 
 
 
 <div>
-    <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('utilizatori')">Utilizatori</a>
     <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('ranks')">Ranks</a>
-    <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('birouri')">Birouri</a>
-    <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('sectii')">Sectii</a>
+    <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('servicii')">Services</a>
+    <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('sectii')">Sections</a>
+     <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('birouri')">Offices</a>
+    <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('utilizatori')">Utilizatori</a>
+    
 </div>
 <div id="utilizatoricontroller" class="controller" ng-controller="utilizatori">
     <div class="gridStyle" ng-grid="gridOptions">
-        <button ng-click="addRow()">Adauga</button>
-        <button ng-click="SaveChanges()">Salveaza</button>
+        <button ng-click="addRow()">Adaugă</button>
+        <button ng-click="SaveChanges()">Salvează</button>
     </div>
 </div>
 <div id="rankscontroller" class="controller" ng-controller="ranks">
     <div class="gridStyle" ng-grid="gridOptions">
-        <button ng-click="addRow()">Adauga</button>
-        <button ng-click="SaveChanges()">Salveaza</button>
+        <button ng-click="addRow()">Adaugă</button>
+        <button ng-click="SaveChanges()">Salvează</button>
     </div>
 </div>
 <div id="sectiicontroller" class="controller" ng-controller="sectii">
     <div class="gridStyle" ng-grid="gridOptions">
-        <button ng-click="addRow()">Adauga</button>
-        <button ng-click="SaveChanges()">Salveaza</button>
+        <button ng-click="addRow()">Adaugă</button>
+        <button ng-click="SaveChanges()">Salvează</button>
     </div>
 </div>
 <div id="birouricontroller" class="controller" ng-controller="birouri">
     <div class="gridStyle" ng-grid="gridOptions">
-        <button ng-click="addRow()">Adauga</button>
-        <button ng-click="SaveChanges()">Salveaza</button>
+        <button ng-click="addRow()">Adaugă</button>
+        <button ng-click="SaveChanges()">Salvează</button>
+    </div>
+</div>
+<div id="serviciicontroller" class="controller" ng-controller="servicii">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button ng-click="addRow()">Adaugă</button>
+        <button ng-click="SaveChanges()">Salvează</button>
     </div>
 </div>
 

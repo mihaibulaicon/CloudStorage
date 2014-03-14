@@ -3,7 +3,9 @@ using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using CloudStorage.Services;
 using Raven.Client;
+using Raven.Client.Document;
 using Raven.Client.Embedded;
+using Raven.Database.Server;
 using RavenDatabase;
 using System;
 using System.Collections.Generic;
@@ -57,10 +59,13 @@ namespace CloudStorage
         }
         protected virtual void RegisterRavenDb(ContainerBuilder builder)
         {
-            documentStore = new EmbeddableDocumentStore { DataDirectory = "D:\\CloudStorageDatabase1", UseEmbeddedHttpServer = true };
+           // NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8080);
+            //documentStore = new EmbeddableDocumentStore { DataDirectory = "D:\\CloudStorageDatabase2", UseEmbeddedHttpServer = true };
+            documentStore = new DocumentStore { Url = "http://localhost:8080/" };
             documentStore.Initialize();
             documentStore.Conventions.IdentityPartsSeparator = "-";
             builder.Register(c => documentStore).As<IDocumentStore>().SingleInstance();
+            
             var session = documentStore.OpenSession();
             session.Advanced.MaxNumberOfRequestsPerSession = 1000;
             builder.Register(c => session).As<IDocumentSession>().InstancePerLifetimeScope();

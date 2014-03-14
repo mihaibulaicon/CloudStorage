@@ -29,6 +29,15 @@ namespace CloudStorage.WCFDataContext
                 return sectii;
             }
         }
+        public IQueryable<Serviciu> Servicii
+        {
+            get
+            {
+                queryService = DependencyResolver.Current.GetService<IQueryService>();
+                var servicii = queryService.Execute(new GetAllEntitiesOfType<Serviciu>()) as IQueryable<Serviciu>;
+                return servicii;
+            }
+        }
         public IQueryable<Birou> Birouri
         {
             get

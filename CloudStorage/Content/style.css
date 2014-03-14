@@ -14,3 +14,16 @@
     width: auto;
     vertical-align:middle;
 }
+select {
+ height:28px !important;
+ width:150px;
+}
+button {
+    background-color:rgb(65, 206, 98);
+    font-weight:bold;
+    font-size:small;
+    border-radius:10px;
+}
+.ngCanvas button {
+    background-color:rgb(255, 0, 0);
+}

@@ -13,6 +13,7 @@ namespace CloudStorage.DatabaseEntities.Structure
     public class Birou : BaseEntity
     {
         public string Nume { get; set; }
+        public string ServiciuId { get; set; }
         public string SectieId { get; set; }
     }
 }

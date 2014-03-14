@@ -48,6 +48,6 @@
 
     };
     $scope.addRow = function () {
-        $scope.myData.push({ Nume: '' });
+        $scope.myData.push({ Nume: '*' });
     };
 }]);

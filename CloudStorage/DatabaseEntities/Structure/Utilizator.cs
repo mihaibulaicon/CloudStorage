@@ -1,4 +1,5 @@
 ﻿using DatabaseEntities;
+using Raven.Imports.Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,10 @@ namespace CloudStorage.DatabaseEntities.Structure
         public string  SectieId { get; set; }
         public string ServiciuId { get; set; }
         public bool EsteSef { get; set; }
+
+        //[JsonIgnore]
+        //public IEnumerable<Sectie> Sectii { get; set; }
+        //[JsonIgnore]
+        //public IEnumerable<Birou> Birouri { get; set; }
     }
 }

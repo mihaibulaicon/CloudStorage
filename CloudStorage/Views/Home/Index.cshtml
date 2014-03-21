@@ -7,56 +7,359 @@
 <script type="text/javascript" src="~/Scripts/AngularControllers/birouri.js"></script>
 <script type="text/javascript" src="~/Scripts/AngularControllers/sectii.js"></script>
 <script type="text/javascript" src="~/Scripts/AngularControllers/servicii.js"></script>
-
-
-
-<div>
-    <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('ranks')">Ranks</a>
-    <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('servicii')">Services</a>
-    <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('sectii')">Sections</a>
-     <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('birouri')">Offices</a>
-    <a class="btn btn-primary btn-lg" role="button" onclick="ChangeController('utilizatori')">Utilizatori</a>
-    
+<script type="text/javascript" src="~/Scripts/AngularControllers/evidenta.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/tipstatie.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/subtipstatie.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/firma.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/model.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/unitatemasura.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/clasificare.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/nivelclasificare.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/categorie.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/destinatie.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/localitate.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/locatie.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/cladire.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularControllers/incapere.js"></script>
+<script type="text/javascript" src="~/Scripts/AngularJS/NgGridFlexibleHeightPlugin.js"></script>
+<header style="height:70px">
+     @*<img src="~/Content/images/HTML5.jpg" style="float:left;max-width:100%; max-height:100%"/>*@
+    <div class="page-header" style="font-family:'Comic Sans MS'">
+  <h1>Evidenta materialelor<small></small></h1></>
 </div>
+</header>
+<nav class="navbar navbar-default" role="navigation" style="font-size:large !important; font-weight:bold !important">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="#" onclick="ChangeController('evidenta')">Evidență</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Structure<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" onclick="ChangeController('ranks')">Ranks</a></li>
+            <li><a href="#" onclick="ChangeController('servicii')">Services</a></li>
+            <li><a href="#" onclick="ChangeController('sectii')">Sections</a></li>
+            <li><a href="#" onclick="ChangeController('birouri')">Offices</a></li>
+            <li><a href="#" onclick="ChangeController('utilizatori')">Utilizatori</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Locations<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" onclick="ChangeController('localitate')">Localitati</a></li>
+            <li><a href="#" onclick="ChangeController('locatie')">Locatii</a></li>
+            <li><a href="#" onclick="ChangeController('cladire')">Cladiri</a></li>
+            <li><a href="#" onclick="ChangeController('incapere')">Incaperi</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Diverse<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" onclick="ChangeController('nivelclasificare')">Nivele clasificare</a></li>
+            <li><a href="#" onclick="ChangeController('clasificare')">Clasificare</a></li>
+            <li><a href="#" onclick="ChangeController('categorie')">Categorii</a></li>
+            <li><a href="#" onclick="ChangeController('destinatie')">Destinatii</a></li>
+            <li><a href="#" onclick="ChangeController('unitatemasura')">Unități de masură</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tipuri/Firme<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" onclick="ChangeController('tipstatie')">Tipuri stație</a></li>
+            <li><a href="#" onclick="ChangeController('subtipstatie')">Subtipuri stație</a></li>
+            <li><a href="#" onclick="ChangeController('firma')">Firme</a></li>
+            <li><a href="#" onclick="ChangeController('model')">Modele</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div id="evidentacontroller" class="controller" ng-controller="evidenta">
+    <script type="text/ng-template" id="searchTemplate">
+        <div class="modal-header">
+            <h3>Căutare materiale</h3>
+        </div>
+        <div class="modal-body">
+           <select ng-model="search.ServiciuId" ng-options="serviciu.Id as serviciu.Nume for serviciu in servicii"></select>
+        <select ng-model="search.SectieId" ng-options="sectie.Id as sectie.Nume for sectie in sectii"></select>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" ng-click="ok()">Caută</button>
+            <button class="btn" style="background-color:red" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+     <script type="text/ng-template" id="detalii">
+        <div class="modal-header">
+            <h3>Detalii material</h3>
+        </div>
+        <div class="modal-body bodyDetalii">
+              <div class="form-group">
+                <label for="denumire">Denumire</label>
+                <input class="form-control" type="text" ng-model="material.Denumire" id="denumire"/>
+              </div>
+             <div class="form-group">
+                <label for="tipstatie">Tip stație</label>
+                <select id="tipstatie" class="form-control" ng-model="material.TipStatieId" ng-options="tipstatie.Id as tipstatie.Nume for tipstatie in materialeScope.tipuristatii" ng-change="updateSubtipuristatii(material)"></select>
+              </div>
+              <div class="form-group">
+                <label for="subtipstatie">Subtip stație</label>
+                 <select id="subtipstatie" class="form-control" ng-model="material.SubTipStatieId" ng-options="subtipstatie.Id as subtipstatie.Nume for subtipstatie in material.subtipuristatii"></select>
+              </div>
+              <div class="form-group">
+                <label for="firma">Firmă</label>
+                <select id="firma" class="form-control" ng-model="material.FirmaId" ng-options="firma.Id as firma.Nume for firma in materialeScope.firme" ng-change="updateModele(material)"></select>
+              </div>
+              <div class="form-group">
+                <label for="model">Model</label>
+                 <select id="model" class="form-control" ng-model="material.ModelId" ng-options="model.Id as model.Nume for model in material.modele"></select>
+              </div> 
+              <div class="form-group">
+                <label for="unitatemasura">Unitate de măsură</label>
+                <select id="unitatemasura" class="form-control" ng-model="material.UnitateMasuraId" ng-options="unitatemasura.Id as unitatemasura.Nume for unitatemasura in materialeScope.unitatimasura"></select>
+              </div>
+              <div class="form-group">
+                <label for="numarinventar">Număr inventar</label>
+                <input class="form-control" type="text" ng-model="material.NumarInventar" id="numarinventar"/>
+              </div>
+             <div class="form-group">
+                <label for="clasifcare">Clasificare</label>
+                <select id="clasificare" class="form-control" ng-model="material.ClasificareId" ng-options="clasificare.Id as clasificare.Nume for clasificare in materialeScope.clasificari"></select>
+              </div>
+             <div class="form-group">
+                <label for="serie">Serie</label>
+                <input class="form-control" type="text" ng-model="material.Serie" id="serie"/>
+              </div>
+             <div class="form-group">
+                <label for="denumireretea">Denumire în rețea</label>
+                <input class="form-control" type="text" ng-model="material.DenumireRetea" id="denumireretea"/>
+              </div>
+             <div class="form-group">
+                <label for="numarDS">Număr DS</label>
+                <input class="form-control" type="text" ng-model="material.NumarDS" id="numarDS"/>
+              </div>
+            <div class="form-group">
+                <label for="nivelclasificare">Nivel Clasificare</label>
+                <select id="nivelclasificare" class="form-control" ng-model="material.NivelClasificareId" ng-options="nivelclasificare.Id as nivelclasificare.Nume for nivelclasificare in materialeScope.niveleclasificare"></select>
+              </div>
+          <div class="form-group">
+                <label for="firmaHDD">Firmă HDD</label>
+                <select id="firmaHDD" class="form-control" ng-model="material.FirmahddId" ng-options="firmaHDD.Id as firmaHDD.Nume for firmaHDD in materialeScope.firme" ng-change="updateModeleHDD(material)"></select>
+              </div>
+              <div class="form-group">
+                <label for="modelHDD">Model HDD</label>
+                 <select id="modelHDD" class="form-control" ng-model="material.ModelHDDId" ng-options="modelHDD.Id as modelHDD.Nume for modelHDD in material.modeleHDD"></select>
+              </div> 
+            <div class="form-group">
+                <label for="seriehdd">Seria HDD</label>
+                <input class="form-control" type="text" ng-model="material.SeriaHDD" id="seriehdd"/>
+              </div>
+             <div class="form-group">
+                <label for="capacitateHDD">Capacitate HDD</label>
+                <input class="form-control" type="text" ng-model="material.CapacitateHDD" id="capacitateHDD"/>
+              </div>
+          
+         
+           <div class="form-group">
+                <label for="serviciu">Serviciu</label>
+                <select id="serviciu" class="form-control" ng-model="material.ServiciuId" ng-options="serviciu.Id as serviciu.Nume for serviciu in materialeScope.servicii" ng-change="updateSectii(row)"></select>
+              </div>
+              <div class="form-group">
+                <label for="sectie">Secție</label>
+                 <select id="sectie" class="form-control" ng-model="material.SectieId" ng-options="sectie.Id as sectie.Nume for sectie in material.sectii" ng-change="updateBirouri(row)"></select>
+              </div>
+          <div class="form-group">
+                <label for="birou">Birou</label>
+                 <select id="birou" class="form-control" ng-model="material.BirouId" ng-options="birou.Id as birou.Nume for birou in material.birouri" ng-change = "updateUtilizatori(row)"></select>
+              </div>
+          <div class="form-group">
+                <label for="utilizator">Utilizator</label>
+                 <select id="utilizator" class="form-control" ng-model="material.UtilizatorId" ng-options="utilizator.Id as utilizator.Nume +' '+ utilizator.Prenume for utilizator in material.utilizatori"></select>
+              </div>
+
+         
+         
+          <div class="form-group">
+                <label for="localitate">Localitate</label>
+                <select id="localitate" class="form-control" ng-model="material.LocalitateId" ng-options="localitate.Id as localitate.Nume for localitate in materialeScope.localitati" ng-change="updateLocatii(row)"></select>
+              </div>
+              <div class="form-group">
+                <label for="locatie">Locație</label>
+                 <select id="locatie" class="form-control" ng-model="material.LocatieId" ng-options="locatie.Id as locatie.Nume for locatie in material.locatii" ng-change="updateCladiri(row)"></select>
+              </div>
+          <div class="form-group">
+                <label for="cladire">Clădire</label>
+                 <select id="cladire" class="form-control" ng-model="material.CladireId" ng-options="cladire.Id as cladire.Nume for cladire in material.cladiri" ng-change = "updateIncaperi(row)"></select>
+              </div>
+          <div class="form-group">
+                <label for="incapere">Încăpere</label>
+                 <select id="incapere" class="form-control" ng-model="material.IncapereId" ng-options="incapere.Id as incapere.Nume for incapere in material.incaperi"></select>
+          </div>
+
+            <div class="form-group">
+                <label for="destinatie">Destinație</label>
+                <select id="destinatie" class="form-control" ng-model="material.DestinatieId" ng-options="destinatie.Id as destinatie.Nume for destinatie in materialeScope.destinatii"></select>
+              </div>
+
+
+          <div class="form-group">
+                <label for="observatii">Observații</label>
+                <input class="form-control" type="text" ng-model="material.Observatii" id="observatii"/>
+              </div>
+             <div class="form-group">
+                <label for="categorie">Categorie</label>
+                 <select id="categorie" class="form-control" ng-model="material.CategorieId" ng-options="categorie.Id as categorie.Nume for categorie in materialeScope.categorii"></select>
+              </div> 
+            <div class="form-group">
+                <label for="cantitate">Cantitate</label>
+                <input class="form-control" type="text" ng-model="material.Cantitate" id="cantitate"/>
+              </div>
+             <div class="form-group">
+                <label for="telefon">Telefon</label>
+                <input class="form-control" type="text" ng-model="material.Telefon" id="telefon"/>
+              </div>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn" ng-click="ok()">OK</button>
+        </div>
+    </script>
+
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
+        <button class="btn" ng-click="open()"><span class="glyphicon glyphicon-search"></span>Caută</button>
+        <button class="btn" ng-click="Export()"><span class="glyphicon glyphicon-save"></span>Export</button>
+    </div>
+</div>
+
 <div id="utilizatoricontroller" class="controller" ng-controller="utilizatori">
     <div class="gridStyle" ng-grid="gridOptions">
-        <button ng-click="addRow()">Adaugă</button>
-        <button ng-click="SaveChanges()">Salvează</button>
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
     </div>
 </div>
 <div id="rankscontroller" class="controller" ng-controller="ranks">
     <div class="gridStyle" ng-grid="gridOptions">
-        <button ng-click="addRow()">Adaugă</button>
-        <button ng-click="SaveChanges()">Salvează</button>
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
     </div>
 </div>
 <div id="sectiicontroller" class="controller" ng-controller="sectii">
     <div class="gridStyle" ng-grid="gridOptions">
-        <button ng-click="addRow()">Adaugă</button>
-        <button ng-click="SaveChanges()">Salvează</button>
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
     </div>
 </div>
 <div id="birouricontroller" class="controller" ng-controller="birouri">
     <div class="gridStyle" ng-grid="gridOptions">
-        <button ng-click="addRow()">Adaugă</button>
-        <button ng-click="SaveChanges()">Salvează</button>
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
     </div>
 </div>
+
 <div id="serviciicontroller" class="controller" ng-controller="servicii">
     <div class="gridStyle" ng-grid="gridOptions">
-        <button ng-click="addRow()">Adaugă</button>
-        <button ng-click="SaveChanges()">Salvează</button>
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
     </div>
 </div>
-
-
+<div id="tipstatiecontroller" class="controller" ng-controller="tipstatie">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
+    </div>
+</div>
+<div id="subtipstatiecontroller" class="controller" ng-controller="subtipstatie">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
+    </div>
+</div>
+<div id="firmacontroller" class="controller" ng-controller="firma">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
+    </div>
+</div>
+<div id="modelcontroller" class="controller" ng-controller="model">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
+    </div>
+</div>
+<div id="unitatemasuracontroller" class="controller" ng-controller="unitatemasura">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
+    </div>
+</div>
+<div id="clasificarecontroller" class="controller" ng-controller="clasificare">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
+    </div>
+</div>
+<div id="destinatiecontroller" class="controller" ng-controller="destinatie">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
+    </div>
+</div>
+<div id="categoriecontroller" class="controller" ng-controller="categorie">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
+    </div>
+</div>
+<div id="nivelclasificarecontroller" class="controller" ng-controller="nivelclasificare">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
+    </div>
+</div>
+<div id="localitatecontroller" class="controller" ng-controller="localitate">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
+    </div>
+</div>
+<div id="locatiecontroller" class="controller" ng-controller="locatie">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
+    </div>
+</div>
+<div id="cladirecontroller" class="controller" ng-controller="cladire">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
+    </div>
+</div>
+<div id="incaperecontroller" class="controller" ng-controller="incapere">
+    <div class="gridStyle" ng-grid="gridOptions">
+        <button class="btn" ng-click="addRow()"><span class="glyphicon glyphicon-plus"></span>Adaugă</button>
+        <button class="btn" ng-click="SaveChanges()"><span class="glyphicon glyphicon-floppy-disk"></span>Salvează</button>
+    </div>
+</div>
+  
 <script type="text/javascript">
     $(document).ready(function () {
         $(".controller").css('visibility', 'hidden');
+        ChangeController('evidenta');
     });
     function ChangeController(controller) {
         $('#' + controller + 'controller').scope().refresh();
-      //  $('#' + controller + 'controller').scope().gridOptions.ngGrid.buildColumns();
         $(".controller").css('visibility', 'hidden');
         $("#" + controller + "controller").css('visibility', 'visible');
     }

@@ -10,5 +10,6 @@ namespace CloudStorage.DatabaseEntities.Entities
     public class SubTipStatie :BaseEntity
     {
         public string Nume { get; set; }
+        public string TipStatieId { get; set; }
     }
 }

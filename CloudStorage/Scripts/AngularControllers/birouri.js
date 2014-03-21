@@ -1,16 +1,18 @@
-﻿angular.module('CloudStorage').controller('birouri', ['$scope', function ($scope) {
+﻿angular.module('CloudStorage').controller('birouri', ['$scope', '$filter', function ($scope, $filter) {
     $scope.birouri = [];
     $scope.servicii = [];
+    $scope.toateSectiile = [];
     $scope.dropdownRefresh = function () {
         angular.forEach($scope.birouri, function (birou, index) {
-            $.ajax({
-                type: "GET",
-                async: false,
-                url: "/CloudStorage/entitiesservice.svc/Sectii?$format=json&$filter=ServiciuId eq '" + birou.ServiciuId + "'",
-                success: function (data) {
-                    birou.sectii = data.d.results;
-                }
-            });
+            //$.ajax({
+            //    type: "GET",
+            //    async: false,
+            //    url: "/CloudStorage/entitiesservice.svc/Sectii?$format=json&$filter=ServiciuId eq '" + birou.ServiciuId + "'",
+            //    success: function (data) {
+            //        birou.sectii = data.d.results;
+            //    }
+            //});
+            birou.sectii = $filter('filter')($scope.toateSectiile, {ServiciuId : birou.ServiciuId},true);
         });
     }
     $scope.refresh = function () {
@@ -30,6 +32,14 @@
                 $scope.servicii = data;
             }
         });
+        $.ajax({
+            url: "/CloudStorage/api/sectii",
+            dataType: 'json',
+            async: false,
+            success: function (data) {
+                $scope.toateSectiile = data;
+            }
+        });
         $scope.dropdownRefresh();
         if(!$scope.$$phase)
          $scope.$apply();
@@ -37,7 +47,10 @@
 
     $scope.refresh();
   
+    hgtOpts = { minHeight: 200 };
     $scope.gridOptions = {
+        plugins: [new ngGridFlexibleHeightPlugin(hgtOpts)],
+        showFooter: true,
         data: 'birouri',
         enableCellSelection: true,
         enableRowSelection: false,
@@ -55,7 +68,7 @@
                            cellTemplate: ' <select ng-model="birouri[ row.rowIndex ].SectieId" ng-options="sectie.Id as sectie.Nume for sectie in birouri[ row.rowIndex ].sectii"></select>',
                            enableCellEdit: false
                        },
-                     { field: 'deleteButton', displayName: 'Sterge', width: 90, cellTemplate: '<button ng-click="removeRow(row)">Șterge</button>', enableCellEdit: false }]
+                       { field: '', displayName: '', width: 30, cellTemplate: '<button ng-click="removeRow(row)"><span class="glyphicon glyphicon-remove"></button>', enableCellEdit: false }]
     };
 
 
@@ -82,14 +95,7 @@
         $scope.birouri.push({ Nume: '*' });
     };
     $scope.update = function (row) {
-        $.ajax({
-            type: "GET",
-            async: false,
-            url: "/CloudStorage/entitiesservice.svc/Sectii?$format=json&$filter=ServiciuId eq '" + $scope.birouri[row.rowIndex].ServiciuId + "'",
-            success: function (data) {
-                row.entity.sectii = data.d.results;
-            }
-        });
+        row.entity.sectii = $filter('filter')($scope.toateSectiile, { ServiciuId: $scope.birouri[row.rowIndex].ServiciuId },true);
         if (!$scope.$$phase)
             $scope.$apply();
     }

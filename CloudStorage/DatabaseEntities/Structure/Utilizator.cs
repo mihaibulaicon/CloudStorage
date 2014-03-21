@@ -14,13 +14,8 @@ namespace CloudStorage.DatabaseEntities.Structure
         public string Nume { get; set; }
         public string Prenume { get; set; }
         public string BirouId { get; set; }
-        public string  SectieId { get; set; }
+        public string SectieId { get; set; }
         public string ServiciuId { get; set; }
         public bool EsteSef { get; set; }
-
-        //[JsonIgnore]
-        //public IEnumerable<Sectie> Sectii { get; set; }
-        //[JsonIgnore]
-        //public IEnumerable<Birou> Birouri { get; set; }
     }
 }

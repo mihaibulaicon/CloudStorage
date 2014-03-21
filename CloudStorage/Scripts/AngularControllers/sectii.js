@@ -25,7 +25,10 @@
 
     $scope.refresh();
 
+    hgtOpts = { minHeight: 200 };
     $scope.gridOptions = {
+        plugins: [new ngGridFlexibleHeightPlugin(hgtOpts)],
+        showFooter: true,
         data: 'sectii',
         enableCellSelection: true,
         enableRowSelection: false,
@@ -37,7 +40,7 @@
                 cellTemplate: ' <select ng-model="sectii[row.rowIndex].ServiciuId" ng-options="serviciu.Id as serviciu.Nume for serviciu in servicii"></select>',
                 enableCellEdit: false
             },
-                     { field: 'deleteButton', displayName: 'Sterge', width: 90, cellTemplate: '<button ng-click="removeRow(row)">Șterge</button>', enableCellEdit: false }]
+                      { field: '', displayName: '', width: 30, cellTemplate: '<button ng-click="removeRow(row)"><span class="glyphicon glyphicon-remove"></button>', enableCellEdit: false }]
     };
 
 
@@ -49,9 +52,7 @@
             dataType: 'json',
             contentType: "application/json"
         });
-        $.getJSON("/CloudStorage/api/sectii", function (data) {
-            $scope.sectii = data;
-        });
+
     };
     $scope.removeRow = function (row) {
         var index = $scope.sectii.indexOf(row.entity);

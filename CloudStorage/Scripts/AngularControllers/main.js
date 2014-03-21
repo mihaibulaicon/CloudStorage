@@ -1,1 +1,1 @@
-﻿angular.module('CloudStorage', ['ngGrid']);
+﻿angular.module('CloudStorage', ['ngGrid', 'ui.bootstrap']);

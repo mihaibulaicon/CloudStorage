@@ -10,7 +10,6 @@ namespace CloudStorage.DatabaseEntities.Structure
     public class Locatie : BaseEntity
     {
         public string Nume { get; set; }
-        public IEnumerable<Cladire> Cladiri { get; set; }
-        public Localitate Localitate { get; set; }
+        public string LocalitateId { get; set; }
     }
 }

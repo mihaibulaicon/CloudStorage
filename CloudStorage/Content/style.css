@@ -1,25 +1,19 @@
 ﻿.gridStyle {
     border: 1px solid rgb(212,212,212);
-    height:600px;
    }
 
 .controller {
+    width:100%;
     position:absolute;
-    top:50px;
-    left:100px;
+    top:170px;
 }
-.centerNav {
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
-    vertical-align:middle;
-}
+
 select {
  height:28px !important;
- width:150px;
+ width:auto;
 }
 button {
-    background-color:rgb(65, 206, 98);
+    background-color:rgb(65, 206,98);
     font-weight:bold;
     font-size:small;
     border-radius:10px;
@@ -27,3 +21,14 @@ button {
 .ngCanvas button {
     background-color:rgb(255, 0, 0);
 }
+.detalii {
+    background-color:rgb(65, 206,98) !important;
+}
+.bodyDetalii select {
+height:30px !important;
+}
+.ng-valid {
+    color:black !important;
+}
+
+

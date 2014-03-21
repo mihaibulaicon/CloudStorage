@@ -1,7 +1,16 @@
-﻿angular.module('CloudStorage').controller('utilizatori', ['$scope', function ($scope) {
+﻿angular.module('CloudStorage').controller('utilizatori', ['$scope','$filter', function ($scope, $filter) {
     $scope.utilizatori = [];
     $scope.ranks = [];
     $scope.servicii = [];
+    $scope.sectii = [];
+    $scope.birouri = [];
+
+    $scope.dropdownRefresh = function () {
+        angular.forEach($scope.utilizatori, function (utilizator, index) {
+            utilizator.sectii = $filter('filter')($scope.sectii, { ServiciuId: utilizator.ServiciuId },true);
+            utilizator.birouri = $filter('filter')($scope.birouri, { SectieId: utilizator.SectieId },true);
+        });
+    }
     $scope.refresh = function () {
         $.ajax({
             url: "/CloudStorage/api/utilizatori",
@@ -28,29 +37,31 @@
                 $scope.servicii = data;
             }
         });
-        angular.forEach($scope.utilizatori, function (utilizator, index) {
-            $.ajax({
-                type: "GET",
-                async: false,
-                url: "/CloudStorage/entitiesservice.svc/Sectii?$format=json&$filter=ServiciuId eq '" + utilizator.ServiciuId + "'",
-                success: function (data) {
-                    utilizator.sectii = data.d.results;
-                }
-            });
-            $.ajax({
-                type: "GET",
-                async: false,
-                url: "/CloudStorage/entitiesservice.svc/Birouri?$format=json&$filter=SectieId eq '" + utilizator.SectieId + "'",
-                success: function (data) {
-                    utilizator.birouri = data.d.results;
-                }
-            });
+        $.ajax({
+            url: "/CloudStorage/api/sectii",
+            dataType: 'json',
+            async: false,
+            success: function (data) {
+                $scope.sectii = data;
+            }
         });
+        $.ajax({
+            url: "/CloudStorage/api/birouri",
+            dataType: 'json',
+            async: false,
+            success: function (data) {
+                $scope.birouri = data;
+            }
+        });
+        $scope.dropdownRefresh();
         if (!$scope.$$phase)
             $scope.$apply();
     }  
     $scope.refresh();
+    hgtOpts = { minHeight: 200 };
     $scope.gridOptions = {
+        plugins: [new ngGridFlexibleHeightPlugin(hgtOpts)],
+        showFooter: true,
         data: 'utilizatori',
         enableCellSelection: true,
         enableRowSelection: false,
@@ -60,28 +71,28 @@
                         displayName: 'Rank',
                         cellTemplate: ' <select ng-model="utilizatori[ row.rowIndex ].RankId" ng-options="rank.Id as rank.Nume for rank in ranks"></select>',
                         enableCellEdit: false },
-                     { field: 'Nume', displayName: 'Nume', enableCellEdit: true },
+                     { field: 'Nume', displayName: 'Nume', enableCellEdit: true  },
                      { field: 'Prenume', displayName: 'Prenume', enableCellEdit: true },
                      {
                          field: 'ServiciuId',
                          displayName: 'Serviciu',
-                         cellTemplate: ' <select ng-model="utilizatori[ row.rowIndex ].ServiciuId" ng-options="serviciu.Id as serviciu.Nume for serviciu in servicii" ng-change="update(row)"></select>',
-                         enableCellEdit: false
+                         cellTemplate: ' <select ng-model="utilizatori[ row.rowIndex ].ServiciuId" ng-options="serviciu.Id as serviciu.Nume for serviciu in servicii" ng-change="updateSectii(row)"></select>',
+                         enableCellEdit: false,
                      },
                         {
-                            field: 'SectieId',
+                            field:'SectieId',
                             displayName: 'Sectie',
-                            cellTemplate: ' <select ng-model="utilizatori[ row.rowIndex ].SectieId" ng-options="sectie.Id as sectie.Nume for sectie in utilizatori[ row.rowIndex ].sectii" ng-change="update(row)"></select>',
+                            cellTemplate: ' <select ng-model="utilizatori[ row.rowIndex ].SectieId" ng-options="sectie.Id as sectie.Nume for sectie in utilizatori[ row.rowIndex ].sectii" ng-change="updateBirouri(row)"></select>',
                             enableCellEdit: false
                         },
                      {
                          field: 'BirouId',
                          displayName: 'Birou',
                          cellTemplate: ' <select ng-model="utilizatori[ row.rowIndex ].BirouId" ng-options="birou.Id as birou.Nume for birou in utilizatori[ row.rowIndex ].birouri"></select>',
-                         enableCellEdit: false
+                         enableCellEdit: false,
                      },
                      { field: 'EsteSef', displayName: 'Sef?', enableCellEdit: true },
-                     { field: 'deleteButton', displayName: 'Sterge', width: 90, cellTemplate: '<button ng-click="removeRow(row)">Șterge</button>', enableCellEdit: false }]
+                      { field: '', displayName: '', width: 30, cellTemplate: '<button ng-click="removeRow(row)"><span class="glyphicon glyphicon-remove"></button>', enableCellEdit: false }]
     };
   
     $scope.SaveChanges= function () {
@@ -92,9 +103,7 @@
             dataType: 'json',
             contentType: "application/json"
         });
-        $.getJSON("/CloudStorage/api/utilizatori", function (data) {
-            $scope.utilizatori = data;
-        });
+
     };
     $scope.removeRow = function (row) {
         var index = $scope.utilizatori.indexOf(row.entity);
@@ -109,15 +118,14 @@
     $scope.addRow = function () {
         $scope.utilizatori.push({Nume: '*', Prenume:'*',EsteSef: false });
     };
-    $scope.update = function (row) {
-        $.ajax({
-            type: "GET",
-            async:false,
-            url: "/CloudStorage/entitiesservice.svc/Birouri?$format=json&$filter=SectieId eq '" + row.entity.SectieId + "'",
-            success: function (data) {
-                $scope.birouri = data.d.results;
-            }
-        });
+    $scope.updateSectii = function (row) {
+        row.entity.sectii = $filter('filter')($scope.sectii, { ServiciuId: $scope.utilizatori[row.rowIndex].ServiciuId },true);
+        row.entity.birouri = [];
+        if (!$scope.$$phase)
+            $scope.$apply();
+    }
+    $scope.updateBirouri = function (row) {
+        row.entity.birouri = $filter('filter')($scope.birouri, { SectieId: $scope.utilizatori[row.rowIndex].SectieId },true);
         if (!$scope.$$phase)
             $scope.$apply();
     }

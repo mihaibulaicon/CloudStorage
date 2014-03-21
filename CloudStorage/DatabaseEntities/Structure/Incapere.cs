@@ -10,6 +10,8 @@ namespace CloudStorage.DatabaseEntities.Structure
     public class Incapere : BaseEntity
     {
         public string Nume { get; set; }
-        public Cladire Cladire { get; set; }
+        public string LocalitateId { get; set; }
+        public string LocatieId { get; set; }
+        public string CladireId { get; set; }
     }
 }

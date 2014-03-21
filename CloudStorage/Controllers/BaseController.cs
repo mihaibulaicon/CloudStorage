@@ -12,8 +12,8 @@ namespace CloudStorage.Controllers
 {
     public class BaseController<T> : ApiController where T : BaseEntity
     {
-        ICommandService CommandService { get; set; }
-        IQueryService QueryService { get; set; }
+        public ICommandService CommandService { get; set; }
+        public IQueryService QueryService { get; set; }
         public BaseController() { }
         public BaseController(ICommandService commandService, IQueryService queryService)
         {
@@ -42,7 +42,7 @@ namespace CloudStorage.Controllers
         
         // PUT api/<controller>/5
         [HttpPut]
-        public void Put(IEnumerable<T> entities)
+        public virtual void Put(IEnumerable<T> entities)
         {
             foreach(var entity in entities)
                CommandService.Execute(new SaveOrUpdateEntity<T>() { Entity = entity });

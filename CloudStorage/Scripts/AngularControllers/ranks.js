@@ -23,8 +23,6 @@
         enableCellSelection: true,
         enableRowSelection: false,
         enableCellEditOnFocus: true,
-        enablePaging:true,
-        pagingOptions:{ pageSizes: [10, 15, 20], pageSize: 10, totalServerItems: 0, currentPage: 1 },
         columnDefs: [{ field: 'Nume', displayName: 'Nume', enableCellEdit: true },
                      { field: '', displayName: '', width: 30, cellTemplate: '<button ng-click="removeRow(row)"><span class="glyphicon glyphicon-remove"></button>', enableCellEdit: false }]
     };

@@ -59,8 +59,6 @@ namespace CloudStorage
         }
         protected virtual void RegisterRavenDb(ContainerBuilder builder)
         {
-           // NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8080);
-            //documentStore = new EmbeddableDocumentStore { DataDirectory = "D:\\CloudStorageDatabase2", UseEmbeddedHttpServer = true };
             documentStore = new DocumentStore { Url = "http://localhost:8080/" };
             documentStore.Initialize();
             documentStore.Conventions.IdentityPartsSeparator = "-";

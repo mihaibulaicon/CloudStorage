@@ -510,17 +510,47 @@
         });
     };
     $scope.Export = function () {
-        var array = typeof $scope.materiale != 'object' ? JSON.parse($scope.materiale) : $scope.materiale;
 
-        var str = '';
-
+        var array = $scope.materiale;
+        var str = 'Denumire, Tip statie, Subtip statie, Firma, Model, Unitate de masura, Numar inventar,'+ 
+        'Clasificare, Serie, Denumire în retea, Numar DS, Nivel clasificare, Firma HDD, Model HDD, Serie HDD, Capacitate HDD,'+
+        'Serviciu, Sectie, Birou, Utilizator, Localitate, Locatie, Cladire, Incapere, Destinatie, Observatii, Categorie, Cantitate, Telefon' + '\r\n';
         for (var i = 0; i < array.length; i++) {
             var line = '';
+            line += array[i]['Denumire'] + ',';
+            line += $filter('filter')($scope.tipuristatii, { Id: array[i]['TipStatieId'] }, true)[0].Nume + ',';
+            line += $filter('filter')($scope.subtipuristatii, { Id: array[i]['SubTipStatieId'] }, true)[0].Nume + ',';
+            line += $filter('filter')($scope.firme, { Id: array[i]['FirmaId'] }, true)[0].Nume + ',';
+            line += $filter('filter')($scope.modele, { Id: array[i]['ModelId'] }, true)[0].Nume + ',';
+            line += $filter('filter')($scope.unitatimasura, { Id: array[i]['UnitateMasuraId'] }, true)[0].Nume + ',';
+            line += array[i]['NumarInventar'] + ',';
+            line += $filter('filter')($scope.clasificari, { Id: array[i]['ClasificareId'] }, true)[0].Nume + ',';
+            line += array[i]['Serie'] + ',';
+            line += array[i]['DenumireRetea'] + ',';
+            line += array[i]['NumarDS'] + ',';
+            line += $filter('filter')($scope.niveleclasificare, { Id: array[i]['NivelClasificareId'] }, true)[0].Nume + ',';
+            line += $filter('filter')($scope.firme, { Id: array[i]['FirmahddId'] }, true)[0].Nume + ',';
+            line += $filter('filter')($scope.modele, { Id: array[i]['ModelHDDId'] }, true)[0].Nume + ',';
+            line += array[i]['SeriaHDD'] + ',';
+            line += array[i]['CapacitateHDD'] + ',';
 
-            for (var index in array[i]) {
-                line += array[i][index] + ',';
-            }
+            line += $filter('filter')($scope.servicii, { Id: array[i]['ServiciuId'] }, true)[0].Nume + ',';
+            line += $filter('filter')($scope.sectii, { Id: array[i]['SectieId'] }, true)[0].Nume + ',';
+            line += $filter('filter')($scope.birouri, { Id: array[i]['BirouId'] }, true)[0].Nume + ',';
+            line += $filter('filter')($scope.utilizatori, { Id: array[i]['UtilizatorId'] }, true)[0].Nume + ',';
+            line += $filter('filter')($scope.localitati, { Id: array[i]['LocalitateId'] }, true)[0].Nume + ',';
+            line += $filter('filter')($scope.locatii, { Id: array[i]['LocatieId'] }, true)[0].Nume + ',';
+            line += $filter('filter')($scope.cladiri, { Id: array[i]['CladireId'] }, true)[0].Nume + ',';
+            line += $filter('filter')($scope.incaperi, { Id: array[i]['IncapereId'] }, true)[0].Nume + ',';
+
+            line += $filter('filter')($scope.destinatii, { Id: array[i]['DestinatieId'] }, true)[0].Nume + ',';
+            line += array[i]['Observatii'] + ',';
+            line += $filter('filter')($scope.categorii, { Id: array[i]['CategorieId'] }, true)[0].Nume + ',';
+            line += array[i]['Cantitate'] + ',';
+            line += array[i]['Telefon'] + ',';
+
             line.slice(0, line.Length - 1);
+
 
             str += line + '\r\n';
         }

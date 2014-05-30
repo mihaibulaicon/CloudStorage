@@ -41,9 +41,8 @@ namespace CloudStorage.Controllers
         
         // PUT api/<controller>/5
         [HttpPut]
-        public void Put(IEnumerable<Utilizator> utilizatori)
+        public void Put(Utilizator utilizator)
         {
-            foreach(var utilizator in utilizatori)
                CommandService.Execute(new SaveOrUpdateEntity<Utilizator>() { Entity = utilizator });
         }
 

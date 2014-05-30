@@ -1,11 +1,94 @@
-﻿@model DatabaseEntities.Utilizator
-<div>
-<p>Tis is index</p>
-@using(Html.BeginForm())
-    {
-    @Html.EditorFor(m => m.Nume)
-    @Html.EditorFor(m => m.Prenume)
-
-    <input type="submit" value="Salveaza" />
-    }
+﻿<script type="text/javascript" src="~/Scripts/jquery.md5.js"></script>
+<div class="bodyDiv" ng-app="CloudStorage">
+    <div ng-controller="Home" style="float: right; position: relative; top: -40px;">
+        <div class="dropdown">
+            <button type="button" class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span>Sign in<b class="caret"></b></button>
+            <ul class="dropdown-menu" style="padding: 15px; min-width: 250px; left:-166px">
+                <li>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                <div class="form-group">
+                                    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox">
+                                        Remember me
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-block">Sign in</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="register" class="dropdown">
+            <button type="button" class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown"><span class="glyphicon glyphicon-asterisk"></span>Register<b class="caret"></b></button>
+            <ul class="dropdown-menu" style="padding: 15px; min-width: 350px;left:-260px !important">
+                <li>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form id="registerForm" class="form" role="form" accept-charset="UTF-8">
+                                <div class="form-group">
+                                    <label class="sr-only">Username</label>
+                                    <input type="text" class="form-control" ng-model="utilizator.Username" placeholder="Username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">First name</label>
+                                    <input type="text" class="form-control" ng-model="utilizator.FirstName" placeholder="First name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">Last name</label>
+                                    <input type="text" class="form-control" ng-model="utilizator.LastName" placeholder="Last name" required>
+                                </div>
+                                 <div class="form-group">
+                                    <label class="sr-only">Birth date</label>
+                                    <input type="date" class="form-control" ng-model="utilizator.BithDate" placeholder="Birth date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">Email address</label>
+                                    <input type="email" class="form-control" ng-model="utilizator.Email" placeholder="Email address" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">Password</label>
+                                    <input type="password" class="form-control" ng-model="utilizator.Password" placeholder="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <button ng-click="Register()" class="btn btn-success btn-block">Register</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+</div>
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+    <li><a href="#profile" data-toggle="tab"><span class="glyphicon glyphicon-picture"></span>Photos</a></li>
+    <li><a href="#messages" data-toggle="tab"><span class="glyphicon glyphicon-facetime-video"></span>Videos</a></li>
+    <li><a href="#messages" data-toggle="tab"><span class="glyphicon glyphicon-book"></span>Documents</a></li>
+    <li><a href="#messages" data-toggle="tab"><span class="glyphicon glyphicon-file"></span>Other files</a></li>
+    <li><a href="#messages" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span>Profile</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane" id="home">
+        Home
+      <br />
+        <br />
+        <hr />
+        <br />
+    </div>
+    <div class="tab-pane" id="profile">Profile</div>
+    <div class="tab-pane" id="messages">Messages</div>
+</div>
 </div>

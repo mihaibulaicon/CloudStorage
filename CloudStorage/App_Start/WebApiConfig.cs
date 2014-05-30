@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace CloudStorage
                 defaults: new { id = RouteParameter.Optional }
             );
             config.Formatters.JsonFormatter.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
+            config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(
+           new IsoDateTimeConverter());
         }
     }
 }

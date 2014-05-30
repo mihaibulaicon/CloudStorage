@@ -57,7 +57,7 @@ namespace CloudStorage
         }
         protected virtual void RegisterRavenDb(ContainerBuilder builder)
         {
-            documentStore = new EmbeddableDocumentStore { DataDirectory = "D:\\CloudStorage\\CloudStorageDatabase", UseEmbeddedHttpServer = true };
+            documentStore = new EmbeddableDocumentStore { DataDirectory = "D:\\CloudStorage\\CloudStorageStorage", UseEmbeddedHttpServer = true, Configuration = { Port = 8091 } };
             documentStore.Initialize();
             documentStore.Conventions.IdentityPartsSeparator = "-";
             builder.Register(c => documentStore).As<IDocumentStore>().SingleInstance();

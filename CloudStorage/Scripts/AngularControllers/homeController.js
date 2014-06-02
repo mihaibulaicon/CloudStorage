@@ -8,14 +8,23 @@
         Email: ''
     };
     $scope.Register = function () {
-        $scope.utilizator.Password = $.md5($scope.utilizator.Password);
-        $.ajax({
-            type: "PUT",
-            url: "/api/utilizatori/",
-            data: JSON.stringify($scope.utilizator),
-            dataType: 'json',
-            contentType: "application/json"
-        });
-        $('#register').removeClass('open');
-    };
+        var form = $("#registerForm")[0];
+       // form.validate();
+        if (form.checkValidity()) {
+            $scope.utilizator.Password = $.md5($scope.utilizator.Password);
+            $.ajax({
+                type: "POST",
+                url: "/api/utilizatori/",
+                data: JSON.stringify($scope.utilizator),
+                dataType: 'json',
+                contentType: "application/json",
+                statusCode: {
+                    409: function () {
+                        alert("Username or email already in use!");
+                    }
+                }
+            });
+            $('#register').removeClass('open');
+        };
+    }
 });

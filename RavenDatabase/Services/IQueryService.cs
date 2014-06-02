@@ -8,6 +8,6 @@ namespace RavenDatabase
 {
     public interface IQueryService
     {
-        IQueryable Execute(IQueryDefinition queryDefinition);
+        T Execute<T>(IQueryDefinition<T> queryDefinition);
     }
 }

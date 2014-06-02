@@ -1,5 +1,6 @@
 ﻿using DatabaseEntities;
 using RavenDatabase;
+using RavenDatabase.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,37 +20,22 @@ namespace CloudStorage.Controllers
             CommandService = commandService;
             QueryService = queryService;
         }
-
-
-        // GET api/<controller>
-        public IQueryable<Utilizator> Get()
-        {
-            var utilizatori = QueryService.Execute(new GetAllEntitiesOfType<Utilizator>());
-            return utilizatori as IQueryable<Utilizator>;
-        }
-
-        // GET api/<controller>/5
         public string Get(string id)
         {
             return "value";
         }
 
         // POST api/<controller>
-        public void Post([FromBody]Utilizator value)
+        public HttpResponseMessage Post([FromBody]Utilizator value)
         {
-        }
-        
-        // PUT api/<controller>/5
-        [HttpPut]
-        public void Put(Utilizator utilizator)
-        {
-               CommandService.Execute(new SaveOrUpdateEntity<Utilizator>() { Entity = utilizator });
-        }
+            var userExistent = QueryService.Execute<bool>(new CheckEmailAndUserNameConflict() { Email = value.Email, UserName = value.Username });
+            if (userExistent)
+                return new HttpResponseMessage(HttpStatusCode.Conflict);
+            else
+                CommandService.Execute(new SaveOrUpdateEntity<Utilizator>() { Entity = value });
 
-        // DELETE api/<controller>/5
-        public void Delete(string id)
-        {
-            CommandService.Execute(new DeleteEntity<Utilizator>() { Id = id });
+            return new HttpResponseMessage(HttpStatusCode.Created);
         }
+     
     }
 }

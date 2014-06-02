@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace RavenDatabase
 {
-    public interface IQueryDefinition
+    public interface IQueryDefinition<T>
     {
-        IQueryable Execute(IDocumentSession documentSession);
+        T Execute(IDocumentSession documentSession);
     }
 }

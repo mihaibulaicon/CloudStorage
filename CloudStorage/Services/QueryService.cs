@@ -10,7 +10,7 @@ namespace CloudStorage.Services
 {
     public class QueryService : IQueryService
     {
-        public IQueryable Execute(IQueryDefinition queryDefinition)
+        public T Execute<T>(IQueryDefinition<T> queryDefinition)
         {
             var documentSession = DependencyResolver.Current.GetService<IDocumentSession>();
             return queryDefinition.Execute(documentSession);

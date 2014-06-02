@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace RavenDatabase
 {
-    public class GetAllEntitiesOfType<T> : IQueryDefinition
+    public class GetAllEntitiesOfType<T> : IQueryDefinition<IQueryable<T>>
     {
 
-        public IQueryable Execute(IDocumentSession documentSession)
+        public IQueryable<T> Execute(IDocumentSession documentSession)
         {
             return
                 from entity in documentSession.Query<T>()

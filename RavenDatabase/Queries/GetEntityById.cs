@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 using DatabaseEntities;
 namespace RavenDatabase
 {
-    public class GetEntityById<T> : IQueryDefinition where T : BaseEntity
+    public class GetEntityById<T> : IQueryDefinition<T> where T : BaseEntity
     {
         public string Id { get; set; }
-        public IQueryable Execute(IDocumentSession documentSession)
+        public T Execute(IDocumentSession documentSession)
         {
             return
-                from entity in documentSession.Query<T>()
+                (from entity in documentSession.Query<T>()
                 where entity.Id == Id
-                select entity;
+                select entity).FirstOrDefault();
         }
     }
 }

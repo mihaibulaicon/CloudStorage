@@ -11,3 +11,8 @@ padding: 45px 15px 15px;
 border:solid;
 width:70%;
 }
+.header {
+    background:url('images/CloudStorage.jpg') no-repeat !important;
+    width:100px;
+    height:100px;
+}

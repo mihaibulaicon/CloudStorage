@@ -1,7 +1,10 @@
 ﻿<script type="text/javascript" src="~/Scripts/jquery.md5.js"></script>
 <div class="bodyDiv" ng-app="CloudStorage">
-    <div ng-controller="Home" style="float: right; position: relative; top: -40px;">
-        <div id="login" class="dropdown">
+    <div ng-controller="Home" style="float: right; position: relative; top: -40px;" >
+        
+        <label class="label label-success" ng-show="userAuthenticated"><span class="glyphicon glyphicon-user"></span>  Welcome <span style="color:black;font-style:italic">{{utilizator.Username}}</span></label>
+        <button type="button" class="btn btn-danger btn-xs" ng-click="Logout()" ng-show="userAuthenticated" style="float:right">Logout</button>
+        <div id="login" class="dropdown" ng-show="!userAuthenticated">
             <button type="button" class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span>Sign in<b class="caret"></b></button>
             <ul class="dropdown-menu" style="padding: 15px; min-width: 250px; left:-166px">
                 <li>
@@ -25,7 +28,7 @@
                 </li>
             </ul>
         </div>
-        <div id="register" class="dropdown">
+        <div id="register" class="dropdown" ng-show="!userAuthenticated">
             <button type="button" class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown"><span class="glyphicon glyphicon-asterisk"></span>Register<b class="caret"></b></button>
             <ul class="dropdown-menu" style="padding: 15px; min-width: 350px;left:-260px !important">
                 <li>

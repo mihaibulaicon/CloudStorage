@@ -21,12 +21,15 @@ namespace CloudStorage.Controllers
             CommandService = commandService;
             QueryService = queryService;
         }
-        public string Get(string id)
+        [TokenAuthorizationFilter(false)]
+        public bool Get(string userName, string password)
         {
-            return "value";
+            var isAuthorized = QueryService.Execute<bool>(new AuthenticateUser() { UserName = userName, Password = password });
+            return isAuthorized;
         }
 
         // POST api/<controller>
+        [TokenAuthorizationFilter(false)]
         public HttpResponseMessage Post([FromBody]Utilizator value)
         {
             var userExistent = QueryService.Execute<bool>(new CheckEmailAndUserNameConflict() { Email = value.Email, UserName = value.Username });

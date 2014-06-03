@@ -7,47 +7,51 @@
         Password: '',
         Email: ''
     };
+    $scope.userAuthenticated = false;
     $scope.Register = function () {
         var form = $("#registerForm")[0];
-       // form.validate();
         if (form.checkValidity()) {
             $scope.utilizator.Password = $.md5($scope.utilizator.Password);
-            //$.ajax({
-            //    type: "POST",
-            //    url: "/api/utilizatori/",
-            //    data: JSON.stringify($scope.utilizator),
-            //    dataType: 'json',
-            //    contentType: "application/json",
-            //    statusCode: {
-            //        409: function () {
-            //            alert("Username or email already in use!");
-            //        }
-            //    }
-            //});
             $http.post("/api/utilizatori/", JSON.stringify($scope.utilizator)).
                         success(function (data, status, headers, config) {
-                            alert(status);
-                        }).
-                        error(function (data, status, headers, config) {
-                            alert(status);
+                            if (status == 201) {
+                                sessionService.setSession($scope.utilizator.Username, $.md5($scope.utilizator.Password));
+                                $scope.userAuthenticated = true;
+                                $scope.showRegister = false;
+                                $scope.showLogin = false;
+                            }
+                            else alert('eroare');
                         });
             $('#register').removeClass('open');
         };
     }
     $scope.Login = function () {
-        sessionService.setSession($scope.utilizator.Username, $.md5($scope.utilizator.Password));
-        $('#login').removeClass('open');
+        $http.get("/api/utilizatori/?userName=" + $scope.utilizator.Username + "&password=" + $.md5($scope.utilizator.Password)).
+                     then(function (result) {
+                         if (result.data == "true")
+                         {
+                             sessionService.setSession($scope.utilizator.Username, $.md5($scope.utilizator.Password));
+                             $scope.userAuthenticated = true;
+                             $('#login').removeClass('open');
+                         }
+                         else {
+                             alert("Credentiale invalide");
+                         }
+                     });
+    }
+    $scope.Logout = function () {
+        sessionService.setSession('', '');
+        $scope.userAuthenticated = false;
     }
 
 }]);
-cloudStorageModule.service('sessionService', function(){
+cloudStorageModule.service('sessionService', function () {
     var user = '';
     var password = '';
     this.setSession = function(u, p){
         user = u;
         password = p;
     };
-
     this.getSession = function(){
         return user+':'+password;
     };
@@ -65,11 +69,7 @@ cloudStorageModule.factory('sessionInjector', ['sessionService', function (sessi
 
       // optional method
      responseError: function(rejection) {
-        // do something on error
-        if (canRecover(rejection)) {
-          return responseOrNewPromise
-        }
-        return $q.reject(rejection);
+        return rejection;
       }
     };
     return sessionInjector;

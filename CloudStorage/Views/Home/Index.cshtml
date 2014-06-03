@@ -1,29 +1,23 @@
 ﻿<script type="text/javascript" src="~/Scripts/jquery.md5.js"></script>
 <div class="bodyDiv" ng-app="CloudStorage">
     <div ng-controller="Home" style="float: right; position: relative; top: -40px;">
-        <div class="dropdown">
+        <div id="login" class="dropdown">
             <button type="button" class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span>Sign in<b class="caret"></b></button>
             <ul class="dropdown-menu" style="padding: 15px; min-width: 250px; left:-166px">
                 <li>
                     <div class="row">
                         <div class="col-md-12">
-                            <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                            <form class="form" role="form" accept-charset="UTF-8" id="login-nav">
                                 <div class="form-group">
-                                    <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                                    <label>Username</label>
+                                    <input type="text" class="form-control" ng-model="utilizator.Username" placeholder="Username" required>
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="exampleInputPassword2">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox">
-                                        Remember me
-                                    </label>
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" ng-model="utilizator.Password"  placeholder="Password" required>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success btn-block">Sign in</button>
+                                    <button ng-click="Login()" class="btn btn-success btn-block">Sign in</button>
                                 </div>
                             </form>
                         </div>
@@ -39,27 +33,27 @@
                         <div class="col-md-12">
                             <form id="registerForm" class="form" role="form" accept-charset="UTF-8">
                                 <div class="form-group">
-                                    <label class="sr-only">Username</label>
+                                    <label>Username</label>
                                     <input type="text" class="form-control" ng-model="utilizator.Username" placeholder="Username" required>
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only">First name</label>
+                                    <label>First name</label>
                                     <input type="text" class="form-control" ng-model="utilizator.FirstName" placeholder="First name" required>
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only">Last name</label>
+                                    <label>Last name</label>
                                     <input type="text" class="form-control" ng-model="utilizator.LastName" placeholder="Last name" required>
                                 </div>
                                  <div class="form-group">
-                                    <label class="sr-only">Birth date</label>
+                                    <label>Birth date</label>
                                     <input type="date" class="form-control" ng-model="utilizator.BirthDate" placeholder="Birth date" required>
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only">Email address</label>
+                                    <label>Email address</label>
                                     <input type="email" class="form-control" ng-model="utilizator.Email" placeholder="Email address" required>
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only">Password</label>
+                                    <label>Password</label>
                                     <input type="password" class="form-control" ng-model="utilizator.Password" placeholder="Password" required>
                                 </div>
                                 <div class="form-group">

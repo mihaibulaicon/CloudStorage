@@ -7,9 +7,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
+using CloudStorage.Attributes;
 namespace CloudStorage.Controllers
 {
+    [TokenAuthorizationFilter(true)]
     public class UtilizatoriController : ApiController
     {
         ICommandService CommandService { get; set; }

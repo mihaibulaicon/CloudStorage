@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using CloudStorage.Attributes;
 using CloudStorage.Services;
 using Raven.Client;
 using Raven.Client.Embedded;

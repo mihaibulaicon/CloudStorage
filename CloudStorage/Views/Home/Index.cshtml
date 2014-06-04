@@ -1,6 +1,6 @@
 ﻿<script type="text/javascript" src="~/Scripts/jquery.md5.js"></script>
-<div class="bodyDiv" ng-app="CloudStorage">
-    <div ng-controller="Home" style="float: right; position: relative; top: -40px;" >
+<div ng-controller="Home" class="bodyDiv"  >
+    <div  style="float: right; position: relative; top: -40px;" >
         
         <label class="label label-success" ng-show="userAuthenticated"><span class="glyphicon glyphicon-user"></span>  Welcome <span style="color:black;font-style:italic">{{utilizator.Username}}</span></label>
         <button type="button" class="btn btn-danger btn-xs" ng-click="Logout()" ng-show="userAuthenticated" style="float:right">Logout</button>
@@ -70,22 +70,14 @@
         </div>
 </div>
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>Home</a></li>
-    <li><a href="#profile" data-toggle="tab"><span class="glyphicon glyphicon-picture"></span>Photos</a></li>
-    <li><a href="#messages" data-toggle="tab"><span class="glyphicon glyphicon-facetime-video"></span>Videos</a></li>
-    <li><a href="#messages" data-toggle="tab"><span class="glyphicon glyphicon-book"></span>Documents</a></li>
-    <li><a href="#messages" data-toggle="tab"><span class="glyphicon glyphicon-file"></span>Other files</a></li>
-    <li><a href="#messages" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span>Profile</a></li>
+    <li><a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+    <li><a href="#Photos" data-toggle="tab"><span class="glyphicon glyphicon-picture"></span>Photos</a></li>
+    <li><a href="#Videos" data-toggle="tab"><span class="glyphicon glyphicon-facetime-video"></span>Videos</a></li>
+    <li><a href="#Documents" data-toggle="tab"><span class="glyphicon glyphicon-book"></span>Documents</a></li>
+    <li><a href="#Other Files" data-toggle="tab"><span class="glyphicon glyphicon-file"></span>Other files</a></li>
+    <li><a href="#Profile" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span>Profile</a></li>
 </ul>
 <div class="tab-content">
-    <div class="tab-pane" id="home">
-        Home
-      <br />
-        <br />
-        <hr />
-        <br />
-    </div>
-    <div class="tab-pane" id="profile">Profile</div>
-    <div class="tab-pane" id="messages">Messages</div>
+    <div ng-view></div>
 </div>
 </div>

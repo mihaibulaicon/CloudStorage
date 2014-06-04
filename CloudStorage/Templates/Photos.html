@@ -1,0 +1,19 @@
+﻿<div ng-controller="photosController">
+    <h1>Photos</h1>
+    <div>
+       <input class="uploadinput" id="uploadFile" placeholder="Choose File" disabled="disabled" />
+    <div class="fileUpload btn btn-primary btn-sm">
+    <span class="glyphicon glyphicon-upload">Upload</span>
+    <input id="uploadBtn" type="file" class="upload" file-input="files" multiple/>
+     
+    </div>
+           <button ng-click="upload()">Upload</button>
+    </div>
+    <li ng-repeat="file in files">{{file.name}}</li>
+  
+</div>
+<script type="text/javascript">
+    document.getElementById("uploadBtn").onchange = function () {
+        document.getElementById("uploadFile").value = this.value;
+    };
+</script>

@@ -77,3 +77,37 @@ cloudStorageModule.factory('sessionInjector', ['sessionService', function (sessi
 cloudStorageModule.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('sessionInjector');
 }]);
+cloudStorageModule.directive('fileInput', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function (scope, elm, attrs) {
+            $parse(attrs.fileInput)
+            .assign(scope, elm[0].files)
+           // scope.$apply()
+        }
+    }
+}]);
+cloudStorageModule.controller('photosController',['$scope','$routeParams','$http', function ($scope, $routeParams,$http) {
+    //$scope.filesChanged = function (elm)
+    //{
+    //    $scope.files = elm.files;
+    //    $scope.$apply();
+    //}
+    $scope.upload = function () {
+        $http.post('/api/photos', $scope.files,
+            {
+                headers: {'Content-Type':'multipart/form-data'}
+            })
+            .success(function (d) {
+                console.log(d);
+            });
+            };
+}]);
+cloudStorageModule.config(['$routeProvider',function ($routeProvider) {
+    $routeProvider
+    .when('/Photos', {
+        templateUrl: 'Templates/Photos.html',
+        controller: 'photosController'
+    });
+}]);
+

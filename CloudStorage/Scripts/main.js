@@ -1,1 +1,1 @@
-﻿var cloudStorageModule = angular.module('CloudStorage', []);
+﻿var cloudStorageModule = angular.module('CloudStorage', ['ngRoute']);

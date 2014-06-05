@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace RavenDatabase
 {
-    public interface ICommandDefinition
+    public interface ICommandDefinition<T>
     {
-        void Execute(IDocumentSession documentSession);
+        T Execute(IDocumentSession documentSession);
     }
 }

@@ -1,19 +1,37 @@
 ﻿<div ng-controller="photosController">
     <h1>Photos</h1>
-    <div>
-       <input class="uploadinput" id="uploadFile" placeholder="Choose File" disabled="disabled" />
-    <div class="fileUpload btn btn-primary btn-sm">
-    <span class="glyphicon glyphicon-upload">Upload</span>
-    <input id="uploadBtn" type="file" class="upload" file-input="files" multiple/>
-     
-    </div>
-           <button ng-click="upload()">Upload</button>
-    </div>
-    <li ng-repeat="file in files">{{file.name}}</li>
-  
+<div class="ng-v">
+	<div class="upload-div">
+		choose a single file: <input type="file" ng-file-select="onFileSelect($files)" ng-click="resetInputFile()">
+		<br/>
+		or multiple files: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="file" ng-file-select="onFileSelect($files)" multiple ng-click="resetInputFile()">
+		<br/>
+		<br/>
+		<div ng-show="dropSupported" class="drop-box" ng-file-drop="onFileSelect($files);" ng-file-drop-available="dropSupported=true">or drop files here</div>
+		<div ng-show="!dropSupported">HTML5 Drop File is not supported on this browser</div>
+		<br/>
+		<div class="err" ng-show="errorMsg != null">{{errorMsg}}</div>
+		<br/>
+		Progress:
+		<br/>
+		<br/>
+		<div ng-show="selectedFiles != null">
+			<div class="sel-file" ng-repeat="f in selectedFiles">
+				<label>{{($index + 1) + '.'}}</label>
+				<!--<img ng-show="dataUrls[$index]" ng-src="{{dataUrls[$index]}}">-->
+				<!--<button class="button" ng-click="start($index)" ng-show="progress[$index] < 0">Start</button>-->
+				<div class="progress" ng-show="progress[$index] >= 0">						
+					<div style="width:{{progress[$index]}}%">{{progress[$index]}}%</div>
+				</div>				
+				<button class="button" ng-click="abort($index)" ng-show="hasUploader($index) && progress[$index] < 100">Abort</button>
+				{{f.name}} - size: {{f.size}}B - type: {{f.type}}
+			</div>
+		</div>
 </div>
+</div>
+    </div>
 <script type="text/javascript">
-    document.getElementById("uploadBtn").onchange = function () {
-        document.getElementById("uploadFile").value = this.value;
-    };
+    //document.getElementById("uploadBtn").onchange = function () {
+    //    document.getElementById("uploadFile").value = this.value;
+    //};
 </script>

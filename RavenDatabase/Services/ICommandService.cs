@@ -8,6 +8,6 @@ namespace RavenDatabase
 {
     public interface ICommandService
     {
-        void Execute(ICommandDefinition commandDefinition);
+        T Execute<T>(ICommandDefinition<T> commandDefinition);
     }
 }

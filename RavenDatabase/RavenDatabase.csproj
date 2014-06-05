@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\DeleteEntity.cs" />
+    <Compile Include="Commands\SaveAtachment.cs" />
     <Compile Include="Queries\AutheticateUser.cs" />
     <Compile Include="Queries\CheckEmailAndUserNameConflict.cs" />
     <Compile Include="Queries\GetAllEntitiesOfType.cs" />

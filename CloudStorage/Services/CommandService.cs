@@ -11,10 +11,10 @@ namespace CloudStorage.Services
     public class CommandService : ICommandService
     {
         public CommandService() { }
-        public void Execute(ICommandDefinition commandDefinition)
+        public T Execute<T>(ICommandDefinition<T> commandDefinition)
         {
             var documentSession = DependencyResolver.Current.GetService<IDocumentSession>();
-            commandDefinition.Execute(documentSession);
+            return commandDefinition.Execute(documentSession);
         }
     }
 }

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace RavenDatabase
 {
-    public class SaveOrUpdateEntity<T> : ICommandDefinition where T: BaseEntity
+    public class SaveOrUpdateEntity<T> : ICommandDefinition<string> where T: BaseEntity
     {
         public T Entity { get; set; }
         public SaveOrUpdateEntity() {}
-        public void Execute(IDocumentSession documentSession)
+        public string Execute(IDocumentSession documentSession)
         {
             if (Entity.Id != null)
             {
@@ -22,6 +22,8 @@ namespace RavenDatabase
             else
                 documentSession.Store(Entity);
             documentSession.SaveChanges();
+
+            return Entity.Id;
         }
        
     }

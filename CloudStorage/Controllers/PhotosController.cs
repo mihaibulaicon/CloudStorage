@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DatabaseEntities;
+using RavenDatabase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,6 +12,14 @@ namespace CloudStorage.Controllers
 {
     public class PhotosController : ApiController
     {
+        ICommandService CommandService { get; set; }
+        IQueryService QueryService { get; set; }
+        public PhotosController() { }
+        public PhotosController(ICommandService commandService, IQueryService queryService)
+        {
+            CommandService = commandService;
+            QueryService = queryService;
+        }
         public HttpResponseMessage Post()
         {
             HttpResponseMessage result = null;
@@ -19,8 +29,10 @@ namespace CloudStorage.Controllers
                 foreach (string file in httpRequest.Files)
                 {
                     var postedFile = httpRequest.Files[file];
-                    var filePath = HttpContext.Current.Server.MapPath("~/" + postedFile.FileName);
-                    postedFile.SaveAs(filePath);
+                    //var filePath = HttpContext.Current.Server.MapPath("~/" + postedFile.FileName);
+                   // postedFile.SaveAs(filePath);
+                    var savedId = CommandService.Execute<string>(new SaveOrUpdateEntity<Photo>() { Entity = new Photo() { FileName = postedFile.FileName } });
+                    CommandService.Execute<string>(new SaveAtachment() { Id= savedId, File = postedFile.InputStream });
                 }
                 result = Request.CreateResponse(HttpStatusCode.Created);
             }

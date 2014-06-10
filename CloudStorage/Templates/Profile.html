@@ -1,11 +1,11 @@
 ﻿<div ng-controller="photosController">
-    <h1>Photos</h1>
-    <button class="btn btn-primary btn-default" data-toggle="modal" data-target="#myModal">
+    <h1>Profile</h1>
+   <!-- <button class="btn btn-primary btn-default" data-toggle="modal" data-target="#myModal">
         Upload photos
     </button>
     <button class="btn btn-primary btn-default" ng-click="getImagesForUser()">
         Get photos
-    </button>
+    </button>-->
     <hr />
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -53,21 +53,14 @@
             </div>
         </div>
     </div>
-     <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                         <img ng-src="data:{{currentImage.Type}};base64,{{currentImage.ByteArray}}" style="max-height:500px;max-width:500px;"/>
-                </div>
-            </div>
-        </div>
-    </div>
     <div>
-            <div ng-repeat="image in images" class="col-xs-2"  data-toggle="modal" data-target="#imageModal">
-                <a ng-click="setCurrentImage(image.Id)" class="thumbnail" style="cursor:pointer">
+        <div class="row">
+            <div ng-repeat="image in images" class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
                     <img ng-src="data:{{image.Type}};base64,{{image.ByteArray}}" />
                 </a>
             </div>
+        </div>
     </div>
 </div>
 

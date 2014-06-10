@@ -17,8 +17,12 @@
                             if (status == 201) {
                                 sessionService.setSession($scope.utilizator.Username, $.md5($scope.utilizator.Password));
                                 $scope.userAuthenticated = true;
+                                sessionService.Authorize();
                             }
-                            else alert('eroare');
+                            else {
+                                sessionService.Deny();
+                                alert('eroare');
+                            }
                         });
             $('#register').removeClass('open');
         };
@@ -30,9 +34,11 @@
                          {
                              sessionService.setSession($scope.utilizator.Username, $.md5($scope.utilizator.Password));
                              $scope.userAuthenticated = true;
+                             sessionService.Authorize();
                              $('#login').removeClass('open');
                          }
                          else {
+                             sessionService.Deny();
                              alert("Credentiale invalide");
                          }
                      });
@@ -46,10 +52,20 @@
 cloudStorageModule.service('sessionService', function () {
     var user = '';
     var password = '';
+    var isAuthorized = false;
     this.setSession = function(u, p){
         user = u;
         password = p;
     };
+    this.Authorize = function () {
+        isAuthorized = true;
+    }
+    this.Deny = function () {
+        isAuthorized = false;
+    }
+    this.isAuthorized = function () {
+        return isAuthorized;
+    }
     this.getSession = function(){
         return user+':'+password;
     };
@@ -76,85 +92,32 @@ cloudStorageModule.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('sessionInjector');
 }]);
 
-cloudStorageModule.controller('photosController',[ '$scope', '$http', '$timeout', '$upload',  function($scope, $http, $timeout, $upload) {
-	$scope.fileReaderSupported = window.FileReader != null;
-	$scope.uploadRightAway = true;
-	
-	$scope.hasUploader = function(index) {
-		return $scope.upload[index] != null;
-	};
-	$scope.abort = function(index) {
-		$scope.upload[index].abort(); 
-		$scope.upload[index] = null;
-	};
-	
-	$scope.onFileSelect = function($files) {
-		$scope.selectedFiles = [];
-		$scope.progress = [];
-		if ($scope.upload && $scope.upload.length > 0) {
-			for (var i = 0; i < $scope.upload.length; i++) {
-				if ($scope.upload[i] != null) {
-					$scope.upload[i].abort();
-				}
-			}
-		}
-		$scope.upload = [];
-		$scope.uploadResult = [];
-		$scope.selectedFiles = $files;
-		$scope.dataUrls = [];
-		for ( var i = 0; i < $files.length; i++) {
-			var $file = $files[i];
-			if (window.FileReader && $file.type.indexOf('image') > -1) {
-				var fileReader = new FileReader();
-				fileReader.readAsDataURL($files[i]);
-				var loadFile = function(fileReader, index) {
-					fileReader.onload = function(e) {
-						$timeout(function() {
-							$scope.dataUrls[index] = e.target.result;
-						});
-					}
-				}(fileReader, i);
-			}
-			$scope.progress[i] = -1;
-			if ($scope.uploadRightAway) {
-				$scope.start(i);
-			}
-		}
-	};
-	
-	$scope.start = function(index) {
-		$scope.progress[index] = 0;
-		$scope.errorMsg = null;
-			$scope.upload[index] = $upload.upload({
-				url : 'api/photos',
-				method: 'POST',
-				file: $scope.selectedFiles[index],
-				fileFormDataName: 'myFile'
-			}).then(function(response) {
-				$scope.uploadResult.push(response.data);
-			}, function(response) {
-				if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-			}, function(evt) {
-				// Math.min is to fix IE which reports 200% sometimes
-				$scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-			}).xhr(function(xhr){
-				xhr.upload.addEventListener('abort', function() {console.log('abort complete')}, false);
-			});
-	};	
-	$scope.resetInputFile = function() {
-		var elems = document.getElementsByTagName('input');
-		for (var i = 0; i < elems.length; i++) {
-			if (elems[i].type == 'file') {
-				elems[i].value = null;
-			}
-		}
-	};
-} ]);
+
 cloudStorageModule.config(['$routeProvider',function ($routeProvider) {
     $routeProvider
     .when('/Photos', {
         templateUrl: 'Templates/Photos.html',
         controller: 'photosController'
-    });
+    })
+     .when('/Videos', {
+        templateUrl: 'Templates/Videos.html',
+        controller: 'videosController'
+     })
+     .when('/Documents', {
+         templateUrl: 'Templates/Documents.html',
+         controller: 'documentsController'
+     })
+     .when('/Files', {
+         templateUrl: 'Templates/Files.html',
+         controller: 'filesController'
+     })
+     .when('/Profile', {
+         templateUrl: 'Templates/Profile.html',
+         controller: 'profileController'
+     })
+     .when('/Home', {
+          templateUrl: 'Templates/Home.html',
+          controller: 'Home'
+      });
 }]);
 

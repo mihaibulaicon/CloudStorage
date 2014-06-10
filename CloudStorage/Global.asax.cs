@@ -61,6 +61,7 @@ namespace CloudStorage
             documentStore = new EmbeddableDocumentStore { DataDirectory = "D:\\CloudStorage\\CloudStorageStorage", UseEmbeddedHttpServer = true, Configuration = { Port = 8091 } };
             documentStore.Initialize();
             documentStore.Conventions.IdentityPartsSeparator = "-";
+            documentStore.Conventions.MaxNumberOfRequestsPerSession = 1000;
             builder.Register(c => documentStore).As<IDocumentStore>().SingleInstance();
             var session = documentStore.OpenSession();
 

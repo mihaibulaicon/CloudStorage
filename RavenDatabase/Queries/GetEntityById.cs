@@ -12,10 +12,7 @@ namespace RavenDatabase
         public string Id { get; set; }
         public T Execute(IDocumentSession documentSession)
         {
-            return
-                (from entity in documentSession.Query<T>()
-                where entity.Id == Id
-                select entity).FirstOrDefault();
+            return documentSession.Load<T>(Id);
         }
     }
 }

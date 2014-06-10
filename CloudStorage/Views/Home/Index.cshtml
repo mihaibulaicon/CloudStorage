@@ -70,12 +70,12 @@
         </div>
 </div>
 <ul class="nav nav-tabs nav-custom">
-    <li><a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>Home</a></li>
-    <li><a href="#Photos" data-toggle="tab"><span class="glyphicon glyphicon-picture"></span>Photos</a></li>
-    <li><a href="#Videos" data-toggle="tab"><span class="glyphicon glyphicon-facetime-video"></span>Videos</a></li>
-    <li><a href="#Documents" data-toggle="tab"><span class="glyphicon glyphicon-book"></span>Documents</a></li>
-    <li><a href="#Other Files" data-toggle="tab"><span class="glyphicon glyphicon-file"></span>Other files</a></li>
-    <li><a href="#Profile" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span>Profile</a></li>
+    <li><a href="#Home" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+    <li ng-show="userAuthenticated"><a href="#Photos"  data-toggle="tab"><span class="glyphicon glyphicon-picture"></span>Photos</a></li>
+    <li ng-show="userAuthenticated"><a href="#Videos"  data-toggle="tab"><span class="glyphicon glyphicon-facetime-video"></span>Videos</a></li>
+    <li ng-show="userAuthenticated"><a href="#Documents"  data-toggle="tab"><span class="glyphicon glyphicon-book"></span>Documents</a></li>
+    <li ng-show="userAuthenticated"><a href="#Files"  data-toggle="tab"><span class="glyphicon glyphicon-file"></span>Other files</a></li>
+    <li ng-show="userAuthenticated"><a href="#Profile"  data-toggle="tab"><span class="glyphicon glyphicon-cog"></span>Profile</a></li>
 </ul>
 <div class="tab-content">
     <div ng-view></div>

@@ -55,7 +55,8 @@
     <Compile Include="Queries\GetAllEntitiesOfType.cs" />
     <Compile Include="Queries\GetEntityById.cs" />
     <Compile Include="Queries\GetAttachmentById.cs" />
-    <Compile Include="Queries\GetPhotosByUsername.cs" />
+    <Compile Include="Queries\GetFoldersByUsernameAndType.cs" />
+    <Compile Include="Queries\GetPhotosByUsernameAndFolder.cs" />
     <Compile Include="Services\ICommandDefinition.cs" />
     <Compile Include="Services\ICommandService.cs" />
     <Compile Include="Services\IQueryDefinition.cs" />

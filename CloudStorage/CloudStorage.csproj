@@ -162,14 +162,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Icons\folder.jpg" />
+    <Content Include="Content\Icons\photoHeader.png" />
+    <Content Include="Content\Icons\refresh_icon.jpg" />
+    <Content Include="Content\Icons\up_icon.png" />
     <Content Include="Content\style.css" />
     <Compile Include="Attributes\TokenAuthorize.cs" />
+    <Compile Include="Controllers\FolderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\UtilizatoriController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FolderTypeEnum.cs" />
     <Compile Include="Models\GridModel.cs" />
     <Compile Include="Models\PhotoReturnType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

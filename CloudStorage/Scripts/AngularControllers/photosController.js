@@ -2,6 +2,9 @@
     $scope.fileReaderSupported = window.FileReader != null;
     $scope.uploadRightAway = true;
     $scope.images = [];
+    $scope.folders = [];
+    $scope.currentFolder = 'root';
+    $scope.isAuthorized = sessionService.isAuthorized();
     $scope.hasUploader = function (index) {
         return $scope.upload[index] != null;
     };
@@ -43,6 +46,8 @@
                     $scope.start(i);
                 }
             }
+
+          //  $scope.getImagesForUser($scope.currentFolder, 'user');
         }
         else
             alert('you must login to upload files');
@@ -55,7 +60,7 @@
             url: 'api/photos',
             method: 'POST',
             file: $scope.selectedFiles[index],
-            fileFormDataName: 'myFile'
+            fileFormDataName: $scope.currentFolder
         }).then(function (response) {
             $scope.uploadResult.push(response.data);
         }, function (response) {
@@ -75,11 +80,20 @@
             }
         }
     };
-    $scope.getImagesForUser = function (user) {
+    $scope.getImagesForUser = function (folder, user) {
         if (sessionService.isAuthorized()) {
-            $http.get("/api/photos/").
+            $http.get("/api/photos/"+folder+"/"+user).
                         then(function (result) {
                             $scope.images = result.data;
+                        });
+        }
+        else alert("please Log in");
+    }
+    $scope.getFolders = function () {
+        if (sessionService.isAuthorized()) {
+            $http.get("/api/folder/1").
+                        then(function (result) {
+                            $scope.folders = result.data;
                         });
         }
         else alert("please Log in");
@@ -93,5 +107,49 @@
         }
         else alert("please Log in");
     }
-    //$scope.getImagesForUser();
+    $scope.setCurrentFolder = function (id) {
+        $scope.currentFolder = id;
+        $scope.getImagesForUser($scope.currentFolder, 'user');
+        $scope.folders = [];
+    }
+    $scope.createFolder = function () {
+        if (sessionService.isAuthorized())
+        {
+            var folder = {
+                Name: $scope.folderName,
+                Username: sessionService.getUser(),
+                FolderType: 1
+            };
+            $http.post("/api/folder/", JSON.stringify(folder)).
+                       success(function (data, status, headers, config) {
+                           if (status == 201) {
+                               alert('Folder creat');
+                               $scope.getFolders();
+                           }
+                           else {
+                               alert('Eroare');
+                           }
+                       });
+        }
+        else alert("please Log in");
+    }
+    $scope.upFolder = function () {
+        $scope.getImagesForUser('root', 'user');
+        $scope.getFolders();
+        $scope.currentFolder = 'root';
+    }
+    $scope.refresh = function ()
+    {
+        $scope.getImagesForUser($scope.currentFolder, 'user');
+    }
+    $scope.$watch(sessionService.isAuthorized, function () {
+        if (sessionService.isAuthorized()) {
+            $scope.getImagesForUser($scope.currentFolder, 'user');
+            $scope.getFolders();
+        }
+        else {
+            $scope.images = [];
+            $scope.folders = [];
+        }
+    });
 }]);

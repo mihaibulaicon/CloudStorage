@@ -38,7 +38,7 @@ namespace CloudStorage.Controllers
                 foreach (string file in httpRequest.Files)
                 {
                     var postedFile = httpRequest.Files[file];
-                    var savedId = CommandService.Execute<string>(new SaveOrUpdateEntity<Photo>() { Entity = new Photo() { FileName = postedFile.FileName, UserName = tokenArray[0], ImageType = postedFile.ContentType } });
+                    var savedId = CommandService.Execute<string>(new SaveOrUpdateEntity<Photo>() { Entity = new Photo() { FileName = postedFile.FileName, UserName = tokenArray[0], ImageType = postedFile.ContentType, FolderId = file } });
                     CommandService.Execute<string>(new SaveAtachment() { Id = savedId, File = postedFile.InputStream });
                 }
                 result = Request.CreateResponse(HttpStatusCode.Created);
@@ -50,11 +50,11 @@ namespace CloudStorage.Controllers
 
             return result;
         }
-        public IEnumerable<PhotoReturnType> Get()
+        public IEnumerable<PhotoReturnType> Get(string folderId,string username)
         {
             var authorizeToken = HttpContext.Current.Request.Headers.GetValues("x-session-token").First();
             var tokenArray = authorizeToken.Split(':');
-            var photos = QueryService.Execute<IEnumerable<Photo>>(new GetPhotosByUsername() { Username = tokenArray[0] });
+            var photos = QueryService.Execute<IEnumerable<Photo>>(new GetPhotosByUsernameAndFolder() { Username = tokenArray[0], FolderId = folderId });
             var photoList = new List<PhotoReturnType>();
             foreach (var photo in photos)
             {

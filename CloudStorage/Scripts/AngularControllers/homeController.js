@@ -45,6 +45,7 @@
     }
     $scope.Logout = function () {
         sessionService.setSession('', '');
+        sessionService.Deny();
         $scope.userAuthenticated = false;
     }
 
@@ -57,6 +58,9 @@ cloudStorageModule.service('sessionService', function () {
         user = u;
         password = p;
     };
+    this.getUser = function () {
+        return user;
+    }
     this.Authorize = function () {
         isAuthorized = true;
     }

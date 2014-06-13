@@ -16,6 +16,10 @@ namespace CloudStorage
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            config.Routes.MapHttpRoute(
+                name:"photo",
+                routeTemplate: "api/{controller}/{folderId}/{username}"
+                );
             config.Formatters.JsonFormatter.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
             config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(
            new IsoDateTimeConverter());

@@ -1,1 +1,0 @@
-﻿var cloudStorageModule = angular.module('CloudStorage', ['angularFileUpload', 'ngRoute']);

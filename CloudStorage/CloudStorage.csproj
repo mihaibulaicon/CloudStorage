@@ -172,6 +172,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\UtilizatoriController.cs" />
+    <Compile Include="Controllers\VideosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,6 +184,7 @@
     <Content Include="Scripts\angular-file-upload.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\AngularControllers\angularSettings.js" />
     <Content Include="Scripts\AngularControllers\profileController.js" />
     <Content Include="Scripts\AngularControllers\filesController.js" />
     <Content Include="Scripts\AngularControllers\documentsController.js" />
@@ -436,7 +438,7 @@
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
     <Content Include="Scripts\jquery.md5.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\AngularControllers\parentUploadController.js" />
     <Compile Include="Services\QueryService.cs" />
     <Compile Include="Services\CommandService.cs" />
   </ItemGroup>

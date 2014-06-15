@@ -1,6 +1,6 @@
 ﻿<div ng-controller="photosController">
     <div>
-        <img src="../Content/Icons/photoHeader.png" style="width:90%;margin-left:5%;margin-right:5%; height:100px; position:relative;top:-40px; opacity:0.6;"/>
+        <img src="../Content/Icons/photoHeader.png" style="width:90%;margin-left:5%;margin-right:5%; height:100px; position:relative;top:-40px; opacity:0.6;" />
     </div>
     <div>
         <img src="../Content/Icons/up_icon.png" ng-show="currentFolder != 'root'" style="height: 40px; width: 40px; cursor: pointer" ng-click="upFolder()" />
@@ -10,7 +10,7 @@
         <button class="btn btn-primary btn-default" data-toggle="modal" data-target="#createFolder" ng-show="currentFolder=='root'">
             Create Folder
         </button>
-        <img src="../Content/Icons/refresh_icon.jpg" style="height: 30px; width: 30px; cursor: pointer" ng-click="refresh()"/>
+        <img src="../Content/Icons/refresh_icon.jpg" style="height: 30px; width: 30px; cursor: pointer" ng-click="refresh()" />
     </div>
     <hr />
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -36,7 +36,7 @@
                             <div class="err" ng-show="errorMsg != null">{{errorMsg}}</div>
                             <br />
                             Progress:
-		                    <br />
+                            <br />
                             <br />
                             <div ng-show="selectedFiles != null">
                                 <div class="sel-file" ng-repeat="f in selectedFiles">
@@ -68,7 +68,7 @@
                 </div>
                 <div class="modal-body">
                     <label for="folderName">Folder Name:</label>
-                    <input type="text" ng-model="folderName" />
+                    <input type="text" ng-model="$parent.folderName" />
                     <button type="button" class="btn btn-default" ng-click="createFolder()" data-dismiss="modal">Create</button>
                 </div>
                 <div class="modal-footer">
@@ -88,18 +88,18 @@
     </div>
     <div>
         <div class="row">
-            <div ng-repeat="folder in folders" class="col-xs-2">
+            <div ng-repeat="folder in folders" class="col-xs-1">
                 <a ng-click="setCurrentFolder(folder.Id)" class="thumbnail" style="cursor: pointer">
                     <img src="../Content/Icons/folder.jpg" />
-                    <label>{{folder.Name}}</label>
+                    <label style="font-size:1em">{{folder.Name}}</label>
                 </a>
             </div>
         </div>
         <div class="row">
-            <div ng-repeat="image in images" class="col-xs-2" data-toggle="modal" data-target="#imageModal">
+            <div ng-repeat="image in files" class="col-xs-2" data-toggle="modal" data-target="#imageModal">
                 <a ng-click="setCurrentImage(image.Id)" class="thumbnail" style="cursor: pointer">
                     <img ng-src="data:{{image.Type}};base64,{{image.ByteArray}}" />
-                    <label>{{image.Name}}</label>
+                    <label style="font-size:1em">{{image.Name}}</label>
                 </a>
             </div>
         </div>

@@ -21,7 +21,12 @@
     <script type="text/javascript" src="~/Scripts/AngularControllers/filesController.js"></script>
     <script type="text/javascript" src="~/Scripts/AngularControllers/profileController.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
-   <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css">
+    <link href="~/Content/video-js.css" rel="stylesheet" />
+    <script src="~/Scripts/video.js"></script>
+    <script>
+        videojs.options.flash.swf = "~/Scripts/video-js.swf";
+    </script>
 </head>
 <body>
     <div ng-app="CloudStorage">

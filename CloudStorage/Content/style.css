@@ -139,3 +139,47 @@ button {
 	background-color: #F0F0F0;
 	border: 1px solid black;
 }
+
+.delete-icon
+{
+    width:25px;
+    height:25px;
+    float:right;
+    position:relative;
+    z-index:100;
+    cursor:pointer;
+    /*top:-20px;
+    right:-20px;*/
+}
+.delete-icon:hover
+{
+     width:27px;
+    height:27px;
+    border:solid 1px;
+}
+.upFolder {
+    height: 25px;
+     width: 25px;
+      cursor: pointer;
+}
+.refresh{
+    height: 20px;
+     width: 20px;
+      cursor: pointer;
+}
+.refresh:hover{
+    height: 23px;
+     width: 23px;
+}
+.name-label{
+    overflow:hidden;
+   text-overflow: ellipsis;
+    white-space: nowrap;
+    display:block;
+    font-size:x-small;
+}
+.document-icon
+{
+    height:60px !important;
+    width:40px !important;
+}

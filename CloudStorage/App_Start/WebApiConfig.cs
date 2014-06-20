@@ -3,7 +3,9 @@ using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Routing;
 
 namespace CloudStorage
 {
@@ -17,9 +19,19 @@ namespace CloudStorage
                 defaults: new { id = RouteParameter.Optional }
             );
             config.Routes.MapHttpRoute(
-                name:"photo",
+                name:"folder",
                 routeTemplate: "api/{controller}/{folderId}/{username}"
                 );
+            config.Routes.MapHttpRoute(
+              name: "delete",
+              routeTemplate: "api/{controller}/{type}/{id}/{diff}"
+              );
+            //config.Routes.MapHttpRoute(
+            //    string.Empty,
+            //    "api/{controller}/{type}/{id}",
+            //    new { controller = "Photos", action = "Delete" },
+            //    new { httpMethod = new HttpMethodConstraint(HttpMethod.Delete) }
+            //);
             config.Formatters.JsonFormatter.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
             config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(
            new IsoDateTimeConverter());

@@ -16,6 +16,8 @@ namespace RavenDatabase
         {
             var entity = documentSession.Load<T>(Id);
             documentSession.Delete<T>(entity);
+            var documentStore = documentSession.Advanced.DocumentStore;
+            documentStore.DatabaseCommands.DeleteAttachment(Id, null);
             documentSession.SaveChanges();
             return string.Empty;
         }

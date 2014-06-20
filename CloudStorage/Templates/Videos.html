@@ -1,16 +1,17 @@
 ﻿<div ng-controller="videosController">
+    <!--<div>
+        <img src="../Content/Icons/photoHeader.png" style="width:90%;margin-left:5%;margin-right:5%; height:100px; position:relative;top:-40px;" />
+    </div>-->
     <div>
-        <img src="../Content/Icons/photoHeader.png" style="width:90%;margin-left:5%;margin-right:5%; height:100px; position:relative;top:-40px; opacity:0.6;" />
-    </div>
-    <div>
-        <img src="../Content/Icons/up_icon.png" ng-show="currentFolder != 'root'" style="height: 40px; width: 40px; cursor: pointer" ng-click="upFolder()" />
-        <button class="btn btn-primary btn-default" data-toggle="modal" data-target="#myModal">
-            Upload photos
+        <img src="../Content/Icons/up_icon.png" ng-show="currentFolder != 'root'" class="upFolder" ng-click="upFolder()" />
+        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+            <span class="glyphicon glyphicon-cloud-upload">Upload videos</span>
+
         </button>
-        <button class="btn btn-primary btn-default" data-toggle="modal" data-target="#createFolder" ng-show="currentFolder=='root'">
-            Create Folder
+        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createFolder" ng-show="currentFolder=='root'">
+            <span class="glyphicon glyphicon-plus">Create folder</span>
         </button>
-        <img src="../Content/Icons/refresh_icon.jpg" style="height: 30px; width: 30px; cursor: pointer" ng-click="refresh()" />
+        <img src="../Content/Icons/refresh_icon.jpg" class="refresh" ng-click="refresh()" />
     </div>
     <hr />
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -18,14 +19,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Upload photos</h4>
+                    <h4 class="modal-title" id="myModalLabel">Upload videos</h4>
                 </div>
                 <div class="modal-body">
                     <div class="ng-v">
                         <div class="upload-div">
                             Choose a single file:
                             <input type="file" ng-file-select="onFileSelect($files)" ng-click="resetInputFile()">
-                            <br />
+                            <!--<br />
                             or multiple files: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="file" ng-file-select="onFileSelect($files)" multiple ng-click="resetInputFile()">
                             <br />
@@ -34,7 +35,7 @@
                             <div ng-show="!dropSupported">HTML5 Drop File is not supported on this browser</div>
                             <br />
                             <div class="err" ng-show="errorMsg != null">{{errorMsg}}</div>
-                            <br />
+                            <br />-->
                             Progress:
                             <br />
                             <br />
@@ -79,16 +80,19 @@
     </div>
     <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="width:120% !important">
                 <div class="modal-body">
-                    <img ng-src="data:{{currentImage.Type}};base64,{{currentImage.ByteArray}}" style="max-height: 500px; max-width: 500px;" />
+                    <video id="currentVideo" controls  width="640" height="464" >
+                        <source src="{{currentVideo}}" type="{{videoType}}" />
+                    </video>
                 </div>
             </div>
         </div>
     </div>
     <div>
         <div class="row">
-            <div ng-repeat="folder in folders" class="col-xs-1">
+            <div ng-repeat="folder in folders" class="col-sm-2">
+                <img src="../Content/Icons/delete.png" class="delete-icon" ng-click="deleteFolder(folder.Id); $event.stopPropagation();" />
                 <a ng-click="setCurrentFolder(folder.Id)" class="thumbnail" style="cursor: pointer">
                     <img src="../Content/Icons/folder.jpg" />
                     <label style="font-size:1em">{{folder.Name}}</label>
@@ -97,12 +101,20 @@
         </div>
         <div class="row">
             <div ng-repeat="image in files" class="col-xs-2" data-toggle="modal" data-target="#imageModal">
-                <a ng-click="setCurrentImage(image.Id)" class="thumbnail" style="cursor: pointer">
+                <img src="../Content/Icons/delete.png" class="delete-icon" ng-click="delete(image.Id); $event.stopPropagation();" />
+                <a ng-click="setCurrentVideo(image.Id)" class="thumbnail" style="cursor: pointer">
                     <img ng-src="data:{{image.Type}};base64,{{image.ByteArray}}" />
-                    <label style="font-size:1em">{{image.Name}}</label>
+                    <span class="name-label">{{image.Name}}</span>
                 </a>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $('#imageModal').on('hidden.bs.modal', function () {
+        var myVideo = document.getElementsByTagName('video')[0];
+        myVideo.pause();
+    })
+
+</script>
 

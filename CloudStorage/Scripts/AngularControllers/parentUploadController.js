@@ -43,8 +43,14 @@
                     }(fileReader, i);
                 }
                 $scope.progress[i] = -1;
-                if ($scope.uploadRightAway) {
+                var nameArray = $files[i].name.split(".");
+                var extension = nameArray[nameArray.length - 1];
+                if ($scope.uploadRightAway && $scope.verifyExtension(extension) == 'true') {
                     $scope.start(i);
+                }
+                else
+                {
+                    alert($scope.verifyExtension(extension));
                 }
             }
         }
@@ -61,6 +67,7 @@
             fileFormDataName: routeService.getCurrentFolder()
         }).then(function (response) {
             $scope.uploadResult.push(response.data);
+            $scope.getFilesForUser();
         }, function (response) {
             if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
         }, function (evt) {
@@ -132,6 +139,7 @@
     }
     $scope.refresh = function () {
         $scope.getFilesForUser();
+       // $scope.getFolders();
     }
     $scope.$watch(sessionService.isAuthorized, function () {
         if (sessionService.isAuthorized()) {
@@ -143,4 +151,43 @@
             $scope.folders = [];
         }
     });
+    $scope.delete = function (id) {
+        $http.delete('/api/' + routeService.getCurrentTab() + '/0/' + id + '/asd').success(function (data, status) {
+            $scope.getFilesForUser();
+        });
+       
+    };
+    $scope.deleteFolder = function (id) {
+        $http.delete('/api/' + routeService.getCurrentTab() + '/1/' + id + '/asd').success(function (data, status) {
+            $scope.getFolders();
+        });
+    };
+    $scope.verifyExtension= function(extension)
+    {
+        if (routeService.getCurrentTab() == 'photos')
+            return $scope.verifyPhotosExtensions(extension);
+        if (routeService.getCurrentTab() == 'videos')
+            return $scope.verifyVideosExtensions(extension);
+        if (routeService.getCurrentTab() == 'documents')
+            return $scope.verifyDocumentsExtensions(extension);
+        return 'true';
+    }
+    $scope.verifyPhotosExtensions = function (extension) {
+        if (extension == 'jpeg' || extension == 'jpg' || extension == 'png' || extension == 'gif')
+            return 'true';
+        else
+            return 'Image type must be one of the following: .jpeg, .jpg, .png, .gif';
+    }
+    $scope.verifyVideosExtensions = function (extension) {
+        if (extension == 'mp4' || extension == 'webm' || extension == 'ogg')
+            return 'true';
+        else
+            return 'Video type must be one of the following: .mp4, .webm, .ogg';
+    }
+    $scope.verifyDocumentsExtensions = function (extension) {
+        if (extension == 'pdf' || extension == 'txt' || extension == 'doc' || extension == 'docx' || extension == 'xls' || extension == 'xlsx')
+            return 'true';
+        else
+            return 'Image type must be one of the following: .pdf, .txt, .doc, .docx, .xls, .xlsx';
+    }
 }]);

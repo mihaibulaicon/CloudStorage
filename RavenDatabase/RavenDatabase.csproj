@@ -32,11 +32,11 @@
   <ItemGroup>
     <Reference Include="Raven.Abstractions, Version=2.5.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Client.2.5.2851\lib\net45\Raven.Abstractions.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\RavenDB-Build-2879\EmbeddedClient\Raven.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Client.Lightweight, Version=2.5.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Client.2.5.2851\lib\net45\Raven.Client.Lightweight.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\RavenDB-Build-2879\EmbeddedClient\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -53,10 +53,12 @@
     <Compile Include="Queries\AutheticateUser.cs" />
     <Compile Include="Queries\CheckEmailAndUserNameConflict.cs" />
     <Compile Include="Queries\GetAllEntitiesOfType.cs" />
+    <Compile Include="Queries\GetDocumentsByUsernameAndFolder.cs" />
     <Compile Include="Queries\GetEntityById.cs" />
     <Compile Include="Queries\GetAttachmentById.cs" />
     <Compile Include="Queries\GetFoldersByUsernameAndType.cs" />
     <Compile Include="Queries\GetPhotosByUsernameAndFolder.cs" />
+    <Compile Include="Queries\GetVideosByUsernameAndFolder.cs" />
     <Compile Include="Services\ICommandDefinition.cs" />
     <Compile Include="Services\ICommandService.cs" />
     <Compile Include="Services\IQueryDefinition.cs" />

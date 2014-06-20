@@ -13,6 +13,9 @@ using System.Web;
 using System.Web.Http;
 using System.Drawing;
 using System.IO;
+using NReco.VideoConverter;
+using System.Web.Mvc;
+using System.Net.Http.Headers;
 
 namespace CloudStorage.Controllers
 {
@@ -38,7 +41,7 @@ namespace CloudStorage.Controllers
                 foreach (string file in httpRequest.Files)
                 {
                     var postedFile = httpRequest.Files[file];
-                    var savedId = CommandService.Execute<string>(new SaveOrUpdateEntity<Photo>() { Entity = new Photo() { FileName = postedFile.FileName, UserName = tokenArray[0], ImageType = postedFile.ContentType, FolderId = file } });
+                    var savedId = CommandService.Execute<string>(new SaveOrUpdateEntity<Video>() { Entity = new Video() { FileName = postedFile.FileName, UserName = tokenArray[0], VideoType = postedFile.ContentType, FolderId = file } });
                     CommandService.Execute<string>(new SaveAtachment() { Id = savedId, File = postedFile.InputStream });
                 }
                 result = Request.CreateResponse(HttpStatusCode.Created);
@@ -50,49 +53,83 @@ namespace CloudStorage.Controllers
 
             return result;
         }
+        [System.Web.Http.HttpGet]
         public IEnumerable<PhotoReturnType> Get(string folderId, string username)
         {
+            var videoConverter = new FFMpegConverter();
             var authorizeToken = HttpContext.Current.Request.Headers.GetValues("x-session-token").First();
             var tokenArray = authorizeToken.Split(':');
-            var photos = QueryService.Execute<IEnumerable<Photo>>(new GetPhotosByUsernameAndFolder() { Username = tokenArray[0], FolderId = folderId });
-            var photoList = new List<PhotoReturnType>();
-            foreach (var photo in photos)
+            var videos = QueryService.Execute<IEnumerable<Video>>(new GetVideosByUsernameAndFolder() { Username = tokenArray[0], FolderId = folderId });
+            var videoList = new List<PhotoReturnType>();
+
+            foreach (var video in videos)
             {
+                // Stream data = new MemoryStream();
+
+
+
                 Image.GetThumbnailImageAbort myCallback =
                            new Image.GetThumbnailImageAbort(ThumbnailCallback);
 
-                var data = QueryService.Execute<Attachment>(new GetAttachmentById() { Id = photo.Id }).Data();
-                // var byteArray = new byte[data.Length];
-                // data.Read(byteArray, 0, (int)data.Length);
-                var image = new Bitmap(data);
+                var data = QueryService.Execute<Attachment>(new GetAttachmentById() { Id = video.Id }).Data();
+                var byteArray = new byte[data.Length];
+                data.Read(byteArray, 0, (int)data.Length);
+                var file = File.Create("/temp-video");
+                file.Write(byteArray, 0, byteArray.Length);
+                file.Close();
+                var imageData = new MemoryStream();
+                videoConverter.GetVideoThumbnail("/temp-video", imageData, 5);
+
+                var image = new Bitmap(imageData);
                 var thumbnail = image.GetThumbnailImage(100, 100, myCallback, IntPtr.Zero);
                 var photoForReturn = new PhotoReturnType()
                 {
-                    Id = photo.Id,
-                    Name = photo.FileName,
-                    Type = photo.ImageType,
+                    Id = video.Id,
+                    Name = video.FileName,
+                    Type = "image/png",
                     ByteArray = imageToByteArray(thumbnail)
                 };
-                photoList.Add(photoForReturn);
+                videoList.Add(photoForReturn);
             }
-            return photoList;
+            return videoList;
         }
         public PhotoReturnType Get(string id)
         {
-            var photo = QueryService.Execute<Photo>(new GetEntityById<Photo>() { Id = id });
+            var video = QueryService.Execute<Video>(new GetEntityById<Video>() { Id = id });
             var data = QueryService.Execute<Attachment>(new GetAttachmentById() { Id = id }).Data();
             var byteArray = new byte[data.Length];
             data.Read(byteArray, 0, (int)data.Length);
             var photoForReturn = new PhotoReturnType()
             {
-                Id = photo.Id,
-                Name = photo.FileName,
-                Type = photo.ImageType,
+                Id = video.Id,
+                Name = video.FileName,
+                Type = video.VideoType,
                 ByteArray = byteArray,
             };
             return photoForReturn;
+
         }
 
+        [System.Web.Http.HttpDelete]
+        public void Delete(int type, string id,string diff)
+        {
+            if (type == 0) //delete file 
+            {
+                CommandService.Execute(new DeleteEntity<Video>() { Id = id });
+            }
+            else   //delete folder
+            {
+                var authorizeToken = HttpContext.Current.Request.Headers.GetValues("x-session-token").First();
+                var tokenArray = authorizeToken.Split(':');
+                var videos = QueryService.Execute<IEnumerable<Video>>(new GetVideosByUsernameAndFolder() { Username = tokenArray[0], FolderId = id });
+                foreach(var video in videos)
+                {
+                    CommandService.Execute(new DeleteEntity<Video>(){Id = video.Id});
+                }
+                CommandService.Execute(new DeleteEntity<Folder>() { Id = id });
+            }
+        }
+     
         private bool ThumbnailCallback()
         {
             return false;

@@ -92,7 +92,30 @@ namespace CloudStorage.Controllers
             };
             return photoForReturn;
         }
+        public void Delete(int type, string id)
+        {
+            CommandService.Execute(new DeleteEntity<Photo>() { Id = id });
+        }
 
+        [System.Web.Http.HttpDelete]
+        public void Delete(int type, string id, string diff)
+        {
+            if (type == 0) //delete file 
+            {
+                CommandService.Execute(new DeleteEntity<Photo>() { Id = id });
+            }
+            else   //delete folder
+            {
+                var authorizeToken = HttpContext.Current.Request.Headers.GetValues("x-session-token").First();
+                var tokenArray = authorizeToken.Split(':');
+                var videos = QueryService.Execute<IEnumerable<Photo>>(new GetPhotosByUsernameAndFolder() { Username = tokenArray[0], FolderId = id });
+                foreach (var video in videos)
+                {
+                    CommandService.Execute(new DeleteEntity<Photo>() { Id = video.Id });
+                }
+                CommandService.Execute(new DeleteEntity<Folder>() { Id = id });
+            }
+        }
         private bool ThumbnailCallback()
         {
             return false;
@@ -103,5 +126,6 @@ namespace CloudStorage.Controllers
             imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
             return ms.ToArray();
         }
+        
     }
 }

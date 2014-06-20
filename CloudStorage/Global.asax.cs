@@ -58,7 +58,7 @@ namespace CloudStorage
         }
         protected virtual void RegisterRavenDb(ContainerBuilder builder)
         {
-            documentStore = new EmbeddableDocumentStore { DataDirectory = "D:\\CloudStorage\\CloudStorageStorage", UseEmbeddedHttpServer = true, Configuration = { Port = 8091 } };
+            documentStore = new EmbeddableDocumentStore { DataDirectory = "D:\\CloudStorage\\CloudStorage1", UseEmbeddedHttpServer = true, Configuration = { Port = 8092 } };
             documentStore.Initialize();
             documentStore.Conventions.IdentityPartsSeparator = "-";
             documentStore.Conventions.MaxNumberOfRequestsPerSession = 1000;

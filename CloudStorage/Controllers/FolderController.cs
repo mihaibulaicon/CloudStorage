@@ -36,5 +36,6 @@ namespace CloudStorage.Controllers
             var folders = QueryService.Execute<IEnumerable<Folder>>(new GetFoldersByUsernameAndType() { Username = tokenArray[0], FolderType = id });
             return folders;
         }
+      
     }
 }

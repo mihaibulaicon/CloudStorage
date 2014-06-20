@@ -52,12 +52,15 @@
     <Compile Include="Commands\SaveAtachment.cs" />
     <Compile Include="Queries\AutheticateUser.cs" />
     <Compile Include="Queries\CheckEmailAndUserNameConflict.cs" />
+    <Compile Include="Queries\CheckEmailConflict.cs" />
     <Compile Include="Queries\GetAllEntitiesOfType.cs" />
     <Compile Include="Queries\GetDocumentsByUsernameAndFolder.cs" />
     <Compile Include="Queries\GetEntityById.cs" />
     <Compile Include="Queries\GetAttachmentById.cs" />
+    <Compile Include="Queries\GetFilesByUsernameAndFolder.cs" />
     <Compile Include="Queries\GetFoldersByUsernameAndType.cs" />
     <Compile Include="Queries\GetPhotosByUsernameAndFolder.cs" />
+    <Compile Include="Queries\GetUserByUsername.cs" />
     <Compile Include="Queries\GetVideosByUsernameAndFolder.cs" />
     <Compile Include="Services\ICommandDefinition.cs" />
     <Compile Include="Services\ICommandService.cs" />

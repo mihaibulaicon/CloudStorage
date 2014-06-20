@@ -181,6 +181,7 @@
     <Content Include="Content\style.css" />
     <Compile Include="Attributes\TokenAuthorize.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
+    <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\FolderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
@@ -190,6 +191,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DocumentReturnType.cs" />
+    <Compile Include="Models\FileReturnType.cs" />
     <Compile Include="Models\FolderTypeEnum.cs" />
     <Compile Include="Models\GridModel.cs" />
     <Compile Include="Models\PhotoReturnType.cs" />
@@ -201,7 +203,6 @@
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\AngularControllers\angularSettings.js" />
-    <Content Include="Scripts\AngularControllers\profileController.js" />
     <Content Include="Scripts\AngularControllers\filesController.js" />
     <Content Include="Scripts\AngularControllers\documentsController.js" />
     <Content Include="Scripts\AngularControllers\homeController.js" />
@@ -489,6 +490,7 @@
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\ng-grid-2.0.7.js" />
     <Content Include="Scripts\ng-grid-2.0.7.min.js" />
+    <Content Include="Scripts\AngularControllers\profileController.js" />
     <Content Include="Scripts\video-js.swf" />
     <Content Include="Scripts\video.js" />
     <Content Include="Templates\Home.html" />

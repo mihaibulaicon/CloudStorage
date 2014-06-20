@@ -89,7 +89,7 @@ cloudStorageModule.config(['$routeProvider', function ($routeProvider) {
      })
      .when('/Profile', {
          templateUrl: 'Templates/Profile.html',
-         controller: 'parentUploadController'
+         controller: 'homeController'
      })
      .when('/Home', {
          templateUrl: 'Templates/Home.html',

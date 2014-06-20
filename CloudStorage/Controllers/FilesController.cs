@@ -20,12 +20,12 @@ using System.Net.Http.Headers;
 namespace CloudStorage.Controllers
 {
     [TokenAuthorizationFilter(true)]
-    public class DocumentsController : ApiController
+    public class FilesController : ApiController
     {
         ICommandService CommandService { get; set; }
         IQueryService QueryService { get; set; }
-        public DocumentsController() { }
-        public DocumentsController(ICommandService commandService, IQueryService queryService)
+        public FilesController() { }
+        public FilesController(ICommandService commandService, IQueryService queryService)
         {
             CommandService = commandService;
             QueryService = queryService;
@@ -42,7 +42,7 @@ namespace CloudStorage.Controllers
                 {
                     var postedFile = httpRequest.Files[file];
                     var type = postedFile.FileName.Split('.')[1];
-                    var savedId = CommandService.Execute<string>(new SaveOrUpdateEntity<Document>() { Entity = new Document() { Type = type, FileName = postedFile.FileName, UserName = tokenArray[0], DocumentType = postedFile.ContentType, FolderId = file } });
+                    var savedId = CommandService.Execute<string>(new SaveOrUpdateEntity<DatabaseEntities.File>() { Entity = new DatabaseEntities.File() { Type = type, FileName = postedFile.FileName, UserName = tokenArray[0], FileType = postedFile.ContentType, FolderId = file } });
                     CommandService.Execute<string>(new SaveAtachment() { Id = savedId, File = postedFile.InputStream });
                 }
                 result = Request.CreateResponse(HttpStatusCode.Created);
@@ -54,24 +54,24 @@ namespace CloudStorage.Controllers
 
             return result;
         }
-        public IEnumerable<Document> Get(string folderId, string username)
+        public IEnumerable<DatabaseEntities.File> Get(string folderId, string username)
         {
             var authorizeToken = HttpContext.Current.Request.Headers.GetValues("x-session-token").First();
             var tokenArray = authorizeToken.Split(':');
-            var documents = QueryService.Execute<IEnumerable<Document>>(new GetDocumentsByUsernameAndFolder() { Username = tokenArray[0], FolderId = folderId });
+            var documents = QueryService.Execute<IEnumerable<DatabaseEntities.File>>(new GetFilesByUsernameAndFolder() { Username = tokenArray[0], FolderId = folderId });
             return documents;
         }
-        public DocumentReturnType Get(string id)
+        public FileReturnType Get(string id)
         {
-            var document = QueryService.Execute<Document>(new GetEntityById<Document>(){Id = id});
+            var document = QueryService.Execute<DatabaseEntities.File>(new GetEntityById<DatabaseEntities.File>() { Id = id });
             var data = QueryService.Execute<Attachment>(new GetAttachmentById() { Id = id }).Data();
             var byteArray = new byte[data.Length];
             data.Read(byteArray, 0, (int)data.Length);
-            var documentForReturn = new DocumentReturnType()
+            var documentForReturn = new FileReturnType()
             {
-                Id=document.Id,
+                Id = document.Id,
                 Name = document.FileName,
-                Type = document.DocumentType,
+                Type = document.FileType,
                 IconType = document.Type,
                 ByteArray = byteArray
             };
@@ -83,16 +83,16 @@ namespace CloudStorage.Controllers
         {
             if (type == 0) //delete file 
             {
-                CommandService.Execute(new DeleteEntity<Document>() { Id = id });
+                CommandService.Execute(new DeleteEntity<DatabaseEntities.File>() { Id = id });
             }
             else   //delete folder
             {
                 var authorizeToken = HttpContext.Current.Request.Headers.GetValues("x-session-token").First();
                 var tokenArray = authorizeToken.Split(':');
-                var documents = QueryService.Execute<IEnumerable<Document>>(new GetDocumentsByUsernameAndFolder() { Username = tokenArray[0], FolderId = id });
-                foreach (var document in documents)
+                var files = QueryService.Execute<IEnumerable<DatabaseEntities.File>>(new GetFilesByUsernameAndFolder() { Username = tokenArray[0], FolderId = id });
+                foreach (var file in files)
                 {
-                    CommandService.Execute(new DeleteEntity<Document>() { Id = document.Id });
+                    CommandService.Execute(new DeleteEntity<DatabaseEntities.File>() { Id = file.Id });
                 }
                 CommandService.Execute(new DeleteEntity<Folder>() { Id = id });
             }

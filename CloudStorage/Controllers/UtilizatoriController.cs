@@ -28,6 +28,13 @@ namespace CloudStorage.Controllers
             return isAuthorized;
         }
 
+        [TokenAuthorizationFilter(true)]
+        public Utilizator Get(string id)
+        {
+            var utilizator = QueryService.Execute<Utilizator>(new GetUserByUsername() { UserName = id});
+            return utilizator;
+        }
+
         // POST api/<controller>
         [TokenAuthorizationFilter(false)]
         public HttpResponseMessage Post([FromBody]Utilizator value)
@@ -39,6 +46,17 @@ namespace CloudStorage.Controllers
                 CommandService.Execute(new SaveOrUpdateEntity<Utilizator>() { Entity = value });
 
             return new HttpResponseMessage(HttpStatusCode.Created);
+        }
+        [TokenAuthorizationFilter(true)]
+        public HttpResponseMessage Put([FromBody]Utilizator value)
+        {
+            var userExistent = QueryService.Execute<bool>(new CheckEmailConflict() { Email = value.Email, Id= value.Id});
+            if (userExistent)
+                return new HttpResponseMessage(HttpStatusCode.Conflict);
+            else
+                CommandService.Execute(new SaveOrUpdateEntity<Utilizator>() { Entity = value });
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
      
     }

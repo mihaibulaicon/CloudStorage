@@ -1,18 +1,25 @@
-﻿<div ng-controller="photosController">
-    <h1>Other files</h1>
-   <!-- <button class="btn btn-primary btn-default" data-toggle="modal" data-target="#myModal">
-        Upload photos
-    </button>
-    <button class="btn btn-primary btn-default" ng-click="getImagesForUser()">
-        Get photos
-    </button>-->
+﻿<div ng-controller="filesController">
+    <!--<div>
+        <img src="../Content/Icons/photoHeader.png" style="width:90%;margin-left:5%;margin-right:5%; height:100px; position:relative;top:-40px;" />
+    </div>-->
+    <div>
+        <img src="../Content/Icons/up_icon.png" ng-show="currentFolder != 'root'" class="upFolder" ng-click="upFolder()" />
+        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+            <span class="glyphicon glyphicon-cloud-upload">Upload files</span>
+
+        </button>
+        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createFolder" ng-show="currentFolder=='root'">
+            <span class="glyphicon glyphicon-plus">Create folder</span>
+        </button>
+        <img src="../Content/Icons/refresh_icon.jpg" class="refresh" ng-click="refresh()" />
+    </div>
     <hr />
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Upload photos</h4>
+                    <h4 class="modal-title" id="myModalLabel">Upload files</h4>
                 </div>
                 <div class="modal-body">
                     <div class="ng-v">
@@ -20,7 +27,7 @@
                             Choose a single file:
                             <input type="file" ng-file-select="onFileSelect($files)" ng-click="resetInputFile()">
                             <br />
-                            or multiple files: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <!--or multiple files: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="file" ng-file-select="onFileSelect($files)" multiple ng-click="resetInputFile()">
                             <br />
                             <br />
@@ -28,9 +35,9 @@
                             <div ng-show="!dropSupported">HTML5 Drop File is not supported on this browser</div>
                             <br />
                             <div class="err" ng-show="errorMsg != null">{{errorMsg}}</div>
-                            <br />
+                            <br />-->
                             Progress:
-		                    <br />
+                            <br />
                             <br />
                             <div ng-show="selectedFiles != null">
                                 <div class="sel-file" ng-repeat="f in selectedFiles">
@@ -53,11 +60,40 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="createFolder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="H1">Create folder</h4>
+                </div>
+                <div class="modal-body">
+                    <label for="folderName">Folder Name:</label>
+                    <input type="text" ng-model="$parent.folderName" />
+                    <button type="button" class="btn btn-default" ng-click="createFolder()" data-dismiss="modal">Create</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div>
         <div class="row">
-            <div ng-repeat="image in images" class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                    <img ng-src="data:{{image.Type}};base64,{{image.ByteArray}}" />
+            <div ng-repeat="folder in folders" class="col-sm-2">
+                <img src="../Content/Icons/delete.png" class="delete-icon" ng-click="deleteFolder(folder.Id); $event.stopPropagation();" />
+                <a ng-click="setCurrentFolder(folder.Id)" class="thumbnail" style="cursor: pointer">
+                    <img src="../Content/Icons/folder.jpg" />
+                    <label style="font-size:1em">{{folder.Name}}</label>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div ng-repeat="image in files" class="col-sm-1" style="width:15% !important">
+                <img src="../Content/Icons/delete.png" class="delete-icon" ng-click="delete(image.Id); $event.stopPropagation();" />
+                <a id="{{image.Id}}" class="thumbnail" style="cursor: pointer" ng-click="downloadDocument(image.Id,$event)">
+                    <img class="document-icon" ng-src="../Content/Icons/document.png" />
+                    <span class="name-label">{{image.FileName}}</span>
                 </a>
             </div>
         </div>

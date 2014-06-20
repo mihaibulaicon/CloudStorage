@@ -15,13 +15,13 @@
             $http.post("/api/utilizatori/", JSON.stringify($scope.utilizator)).
                         success(function (data, status, headers, config) {
                             if (status == 201) {
-                                sessionService.setSession($scope.utilizator.Username, $.md5($scope.utilizator.Password));
+                                sessionService.setSession($scope.utilizator.Username, $scope.utilizator.Password);
                                 $scope.userAuthenticated = true;
                                 sessionService.Authorize();
                             }
                             else {
                                 sessionService.Deny();
-                                alert('eroare');
+                                alert('Email or username already in use!');
                             }
                         });
             $('#register').removeClass('open');
@@ -48,6 +48,14 @@
         sessionService.Deny();
         $scope.userAuthenticated = false;
     }
+    $scope.$watch(sessionService.isAuthorized, function () {
+        if (sessionService.isAuthorized()) {
+            $scope.userAuthenticated = true;
+        }
+        else {
+            $scope.userAuthenticated = false;
+        }
+    });
 
 }]);
 

@@ -89,7 +89,7 @@
             </div>
         </div>
         <div class="row">
-            <div ng-repeat="image in files" class="col-sm-1">
+            <div ng-repeat="image in files" class="col-sm-1" style="width:15% !important">
                 <img src="../Content/Icons/delete.png" class="delete-icon" ng-click="delete(image.Id); $event.stopPropagation();" />
                 <a id="{{image.Id}}" class="thumbnail" style="cursor: pointer" ng-click="downloadDocument(image.Id,image.Type,$event)">
                     <img class="document-icon" ng-src="../Content/Icons/{{image.Type}}.png" />

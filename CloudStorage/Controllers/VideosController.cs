@@ -74,7 +74,7 @@ namespace CloudStorage.Controllers
                 var data = QueryService.Execute<Attachment>(new GetAttachmentById() { Id = video.Id }).Data();
                 var byteArray = new byte[data.Length];
                 data.Read(byteArray, 0, (int)data.Length);
-                var file = File.Create("/temp-video");
+                var file = System.IO.File.Create("/temp-video");
                 file.Write(byteArray, 0, byteArray.Length);
                 file.Close();
                 var imageData = new MemoryStream();

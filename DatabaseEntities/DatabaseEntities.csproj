@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Document.cs" />
+    <Compile Include="File.cs" />
     <Compile Include="Folder.cs" />
     <Compile Include="Photo.cs" />
     <Compile Include="Utilizator.cs" />

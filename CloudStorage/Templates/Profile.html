@@ -1,66 +1,45 @@
-﻿<div ng-controller="photosController">
+﻿<div ng-controller="profileController">
     <h1>Profile</h1>
-   <!-- <button class="btn btn-primary btn-default" data-toggle="modal" data-target="#myModal">
-        Upload photos
-    </button>
-    <button class="btn btn-primary btn-default" ng-click="getImagesForUser()">
-        Get photos
-    </button>-->
+    <!-- <button class="btn btn-primary btn-default" data-toggle="modal" data-target="#myModal">
+         Upload photos
+     </button>
+     <button class="btn btn-primary btn-default" ng-click="getImagesForUser()">
+         Get photos
+     </button>-->
     <hr />
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Upload photos</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="ng-v">
-                        <div class="upload-div">
-                            Choose a single file:
-                            <input type="file" ng-file-select="onFileSelect($files)" ng-click="resetInputFile()">
-                            <br />
-                            or multiple files: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="file" ng-file-select="onFileSelect($files)" multiple ng-click="resetInputFile()">
-                            <br />
-                            <br />
-                            <div ng-show="dropSupported" class="drop-box" ng-file-drop="onFileSelect($files);" ng-file-drop-available="dropSupported=true">or drop files here</div>
-                            <div ng-show="!dropSupported">HTML5 Drop File is not supported on this browser</div>
-                            <br />
-                            <div class="err" ng-show="errorMsg != null">{{errorMsg}}</div>
-                            <br />
-                            Progress:
-		                    <br />
-                            <br />
-                            <div ng-show="selectedFiles != null">
-                                <div class="sel-file" ng-repeat="f in selectedFiles">
-                                    <label>{{($index + 1) + '.'}}</label>
-                                    <!--<img ng-show="dataUrls[$index]" ng-src="{{dataUrls[$index]}}">-->
-                                    <!--<button class="button" ng-click="start($index)" ng-show="progress[$index] < 0">Start</button>-->
-                                    <div class="progress" ng-show="progress[$index] >= 0">
-                                        <div style="width: {{progress[$index]}}%">{{progress[$index]}}%</div>
-                                    </div>
-                                    <button class="button" ng-click="abort($index)" ng-show="hasUploader($index) && progress[$index] < 100">Abort</button>
-                                    {{f.name}} - size: {{f.size}}B - type: {{f.type}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div>
+    <div id="register" ng-show="userAuthenticated">
         <div class="row">
-            <div ng-repeat="image in images" class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                    <img ng-src="data:{{image.Type}};base64,{{image.ByteArray}}" />
-                </a>
+            <div class="col-md-8">
+                <form id="updateForm" accept-charset="UTF-8">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" ng-model="utilizator.Username" placeholder="Username" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>First name</label>
+                        <input type="text" class="form-control" ng-model="utilizator.FirstName" placeholder="First name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last name</label>
+                        <input type="text" class="form-control" ng-model="utilizator.LastName" placeholder="Last name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Birth date</label>
+                        <input type="date" class="form-control" ng-model="utilizator.BirthDate" placeholder="Birth date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input type="email" class="form-control" ng-model="utilizator.Email" placeholder="Email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" ng-model="utilizator.Password" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <button ng-click="update()" class="btn btn-success btn-block">Update data</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-
